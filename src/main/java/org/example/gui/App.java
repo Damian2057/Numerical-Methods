@@ -13,6 +13,7 @@ public class App extends Application {
 
         double lowerLimit , upperLimit, dokladnosc;
 
+        //podajemy dolny i gorny przedzial oraz dokladnosc
         Scanner sc= new Scanner(System.in);
         System.out.print("Podaj dolny przedzial: ");
         lowerLimit = sc.nextDouble();
@@ -21,13 +22,12 @@ public class App extends Application {
         System.out.print("Podaj dokladnosc: ");
         dokladnosc = sc.nextDouble();
 
+        //wynik
         System.out.println(bisection.bisectionAlgorithm(lowerLimit,upperLimit,dokladnosc));
+        System.exit(0);
     }
 
     public static void main(String[] args) {
         launch();
-
-
-
     }
 }
