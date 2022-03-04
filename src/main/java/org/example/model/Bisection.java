@@ -4,13 +4,11 @@ import org.example.exception.NoZeroException;
 
 public class Bisection {
 
-    //private Expression expression;
+    private String eqaution;
 
     public Bisection(String eqaution) {
-       // this.expression = new Expresion(eqaution);
-        //x*x+x+1
+        this.eqaution = eqaution;
     }
-
 
     private double f(double x) {
         //obliczamy wartosc funkcji dla zadanego x
@@ -76,6 +74,4 @@ public class Bisection {
         }
         return x1;
     }
-
-
 }

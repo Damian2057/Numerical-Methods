@@ -3,6 +3,7 @@ module Zadanie1 {
     requires java.sql;
     requires javafx.graphics;
     requires javafx.controls;
+    requires java.desktop;
 
     opens org.example.model;
     exports org.example.model;
