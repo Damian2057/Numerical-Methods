@@ -10,12 +10,15 @@ public class Bisection {
         this.eqaution = eqaution;
     }
 
-    private double f(double x) {
+    public double f(double x) {
         //obliczamy wartosc funkcji dla zadanego x
         return x*x+x-1;
     }
 
     public double bisectionAlgorithm(double lowerLimit, double upperLimit, double epsilon) throws Exception {
+        if(f(lowerLimit) * f(upperLimit) >= 0) {
+            throw new NoZeroException("Podany przedzial nie zawiera miejsca zerowego");
+        }
         //Pierwszy krok sprawdzamy, czy srodek przedzial nie jest szukanym rozwiazaniem (lowerLimit+upperLimit)/2
         double x1 = (lowerLimit+upperLimit)/2.0;
         if(f(x1) == 0) {
