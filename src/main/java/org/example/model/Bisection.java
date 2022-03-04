@@ -23,9 +23,11 @@ public class Bisection {
             return x1;
         } else {
             //Jezeli nie, Szukamy miejsca zerowego tak dlugo az osiagniemy zadana dokladnosc.
-            while (Math.abs(upperLimit-lowerLimit) > epsilon) {
+            double temp = x1;
+            while (Math.abs(x1-temp) < epsilon) {
                 // w kazdej iteracji biezemy srodek predzialu/kazdego kolejnego przedzialu
                 //z kazdym obiegiem przeszukiwany przedzial sie zmniejsza
+                temp = x1;
                 x1 = (lowerLimit+upperLimit)/2.0;
 
                 //jezeli znaki na krancach przedzialu sa rozne +-<0 oznacza to ze
