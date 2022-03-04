@@ -1,5 +1,7 @@
 package org.example.model;
 
+import org.example.exception.NoZeroException;
+
 public class Bisection {
 
     //private Expression expression;
@@ -16,14 +18,12 @@ public class Bisection {
     }
 
     public double bisectionAlgorithm(double lowerLimit, double upperLimit, double epsilon) throws Exception {
-
         //Pierwszy krok sprawdzamy, czy srodek przedzial nie jest szukanym rozwiazaniem (lowerLimit+upperLimit)/2
         double x1 = (lowerLimit+upperLimit)/2.0;
         if(f(x1) == 0) {
             //jezeli tak zwracamy wartosc x1 czyli szukane miejsce zerowe na podanym przedziale.
             return x1;
         } else {
-            int i  = 0;
             //Jezeli nie, Szukamy miejsca zerowego tak dlugo az osiagniemy zadana dokladnosc.
             while (Math.abs(upperLimit-lowerLimit) > epsilon) {
                 // w kazdej iteracji biezemy srodek predzialu/kazdego kolejnego przedzialu
@@ -44,7 +44,7 @@ public class Bisection {
                     //Funkcja za żadnym przedziale lewym i prawym nie zmienia znaku na krancach przedzialu,
                     //tzn. funkcja nie ma miejsca zerowego w zadanym przedziale.
                     //rzucamy wyjatek, ktory wylapiemy przy wywolaniu.
-                    //throw new Exception();
+                    throw new NoZeroException("Brak miejsca zerowego");
                 }
             }
         }
@@ -52,8 +52,29 @@ public class Bisection {
     }
 
     public double bisectionAlgorithm(double lowerLimit, double upperLimit, int iteration) {
+        double x1 = (lowerLimit+upperLimit)/2.0;
+        if(f(x1) == 0) {
+            return x1;
+        } else {
 
-        return 0;
+            //flaga zabezpieczenie, czy nasza podana funkcja ma w ogole jakies miejsce zerowe w zadanym przedziale
+            //jezeli zostanie wykonany krok tzn zmniejszony przedzial algorytm wykonuje sie dalej, jezeli nie rzucany jest wyjatek
+            boolean flag = false;
+            //algorytm wykonuje sie tak dlugo az nie zostanie wykonana zadana liczba iteracji.
+            for (int i = 0; i < iteration; i++){
+                x1 = (lowerLimit+upperLimit)/2.0;
+                if (f(lowerLimit) * f(x1) < 0) {
+                    upperLimit = x1;
+                    flag = true;
+                } else if (f(upperLimit) * f(x1) < 0) {
+                    lowerLimit = x1;
+                    flag = true;
+                }
+                //Zabezpieczenie w przypadku braku miejsca zerowego w zadanym przedziale.
+                if(!flag) throw new NoZeroException("Brak miejsca zerowego");
+            }
+        }
+        return x1;
     }
 
 

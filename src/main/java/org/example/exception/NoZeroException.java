@@ -1,7 +1,7 @@
 package org.example.exception;
 
 public class NoZeroException extends RuntimeException{
-//    public class NoZeroException() {
-//
-//    }
+    public NoZeroException(String message) {
+        super(message);
+    }
 }
