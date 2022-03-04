@@ -22,8 +22,6 @@ public class App extends Application {
         dokladnosc = sc.nextDouble();
 
         System.out.println(bisection.bisectionAlgorithm(lowerLimit,upperLimit,dokladnosc));
-//        System.out.println(bisection.bisectionAlgorithm(0,2,0.0001));
-        System.out.println("test");
     }
 
     public static void main(String[] args) {
