@@ -55,7 +55,7 @@ public class App extends Application {
         while(index <= upperLimit) {
             x.add(index);
             y.add(bisection.f(index));
-            index+=Math.abs((upperLimit-lowerLimit)*(1.0/100));
+            index+=Math.abs((upperLimit-lowerLimit)*(1.0/300));
         }
 
         final XYSeriesDemo demo = new XYSeriesDemo(x,y);
