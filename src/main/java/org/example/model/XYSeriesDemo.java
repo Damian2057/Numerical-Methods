@@ -20,6 +20,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 public class XYSeriesDemo extends ApplicationFrame {
 
@@ -37,10 +38,13 @@ public class XYSeriesDemo extends ApplicationFrame {
         osX.add(x.get(0).doubleValue(), 0);
         osX.add(x.get(x.size()-1).doubleValue(),0);
 
-        Collections.sort(y);
+        ArrayList<Double> copy = (ArrayList<Double>) new ArrayList<>(y).clone();
+
+        Collections.sort(copy);
         final XYSeries osY = new XYSeries("Oś Y");
-        osY.add(0,y.get(0));
-        osY.add(0,y.get(y.size()-1));
+        osY.add(0,copy.get(0));
+        osY.add(0,copy.get(copy.size()-1));
+
 
         final XYSeries miejsceZerowe = new XYSeries("Miejsce zerowe");
         miejsceZerowe.add(zero,0);
