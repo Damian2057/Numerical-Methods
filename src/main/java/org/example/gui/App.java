@@ -3,7 +3,6 @@ package org.example.gui;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 import org.example.exception.NoZeroException;
