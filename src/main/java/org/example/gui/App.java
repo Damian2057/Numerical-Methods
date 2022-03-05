@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import java.util.Scanner;
-
 import org.example.exception.NoZeroException;
 import org.example.model.Bisection;
 import org.example.model.Falsi;
@@ -30,7 +29,7 @@ public class App extends Application {
         Falsi falsi = new Falsi(wzor);
         try {
             if(stop >=1) {
-                Integer stop2 = (int) stop;
+                int stop2 = (int) stop;
                 System.out.println(bisection.bisectionAlgorithm(lowerLimit,upperLimit,stop2));
                 System.out.println(falsi.falsiAlgorithm(lowerLimit,upperLimit,stop2));
             } else {
