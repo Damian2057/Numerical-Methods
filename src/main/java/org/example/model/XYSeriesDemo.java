@@ -29,7 +29,7 @@ public class XYSeriesDemo extends ApplicationFrame {
 
         final XYSeries series = new XYSeries("f(x)");
 
-        double m0 = 0, diff = 999999;
+        double m0 = 0.0, diff = y.get(0);
         for(int i=0; i<x.size(); i++) {
             series.add(x.get(i),y.get(i));
 
