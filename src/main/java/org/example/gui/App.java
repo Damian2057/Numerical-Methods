@@ -1,6 +1,7 @@
 package org.example.gui;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 
 import org.mariuszgromada.math.mxparser.*;
@@ -14,29 +15,31 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Bisection bisection = new Bisection("xd");
-        Falsi falsi = new Falsi("xd");
-        Function f = new Function("f(x) = 1/(sin(x*x+1))");
-        Argument x = new Argument("x = 0");
-        Expression expression = new Expression("f(x)",f,x);
-        System.out.println(expression.calculate());
+        System.out.println("Podaj wzor funkcji np. sin(x+1): ");
+        Scanner scanner= new Scanner(System.in);
+        String wzor = scanner.nextLine();
 
-//        double lowerLimit , upperLimit, dokladnosc;
-//
-//        //podajemy dolny i gorny przedzial oraz dokladnosc
-//        Scanner sc= new Scanner(System.in);
-//        System.out.print("Podaj dolny przedzial: ");
-//        lowerLimit = sc.nextDouble();
-//        System.out.print("Podaj gorny przedzial: ");
-//        upperLimit = sc.nextDouble();
-//        System.out.print("Podaj dokladnosc: ");
-//        dokladnosc = sc.nextDouble();
-//
-//        //wynik
-//        System.out.println(bisection.bisectionAlgorithm(lowerLimit,upperLimit,dokladnosc));
-//        System.out.println(bisection.bisectionAlgorithm(0,1,10));
-//        System.out.println(falsi.falsiAlgorithm(0,1,10));
-        System.exit(0);
+        //podajemy dolny i gorny przedzial oraz liczbe iteracji/dokladnosc
+        double lowerLimit , upperLimit, stop;
+        System.out.print("Podaj dolny przedzial: ");
+        lowerLimit = scanner.nextDouble();
+        System.out.print("Podaj gorny przedzial: ");
+        upperLimit = scanner.nextDouble();
+        System.out.println("Podaj warunek stopu (liczba >=1 to liczba iteracji, <1 to dokladnosc): ");
+        stop = scanner.nextDouble();
+
+        Bisection bisection = new Bisection(wzor);
+        Falsi falsi = new Falsi(wzor);
+        if(stop >=1) {
+            Integer stop2 = (int) stop;
+            System.out.println(bisection.bisectionAlgorithm(lowerLimit,upperLimit,stop2));
+            System.out.println(falsi.falsiAlgorithm(lowerLimit,upperLimit,stop2));
+        } else {
+            System.out.println(bisection.bisectionAlgorithm(lowerLimit, upperLimit, stop));
+            System.out.println(falsi.falsiAlgorithm(lowerLimit, upperLimit, stop));
+        }
+
+        Platform.exit();
     }
 
     public static void main(String[] args) {
