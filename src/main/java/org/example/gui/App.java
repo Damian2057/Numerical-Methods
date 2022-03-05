@@ -3,13 +3,11 @@ package org.example.gui;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
-
-import org.mariuszgromada.math.mxparser.*;
-import java.beans.*;
 import java.util.Scanner;
+
+import org.example.exception.NoZeroException;
 import org.example.model.Bisection;
 import org.example.model.Falsi;
-import org.mariuszgromada.math.mxparser.Expression;
 
 public class App extends Application {
 
@@ -30,13 +28,19 @@ public class App extends Application {
 
         Bisection bisection = new Bisection(wzor);
         Falsi falsi = new Falsi(wzor);
-        if(stop >=1) {
-            Integer stop2 = (int) stop;
-            System.out.println(bisection.bisectionAlgorithm(lowerLimit,upperLimit,stop2));
-            System.out.println(falsi.falsiAlgorithm(lowerLimit,upperLimit,stop2));
-        } else {
-            System.out.println(bisection.bisectionAlgorithm(lowerLimit, upperLimit, stop));
-            System.out.println(falsi.falsiAlgorithm(lowerLimit, upperLimit, stop));
+        try {
+            if(stop >=1) {
+                Integer stop2 = (int) stop;
+                System.out.println(bisection.bisectionAlgorithm(lowerLimit,upperLimit,stop2));
+                System.out.println(falsi.falsiAlgorithm(lowerLimit,upperLimit,stop2));
+            } else {
+                System.out.println(bisection.bisectionAlgorithm(lowerLimit, upperLimit, stop));
+                System.out.println(falsi.falsiAlgorithm(lowerLimit, upperLimit, stop));
+            }
+        } catch (NoZeroException e) {
+            System.out.println("Funkcja wydaje sie nie miec miejsca zerowego na podanym przedziale");
+        } catch (Exception e) {
+            System.out.println("Wykryto blad");
         }
 
         Platform.exit();

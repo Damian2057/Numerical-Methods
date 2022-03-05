@@ -4,7 +4,7 @@ import org.example.exception.NoZeroException;
 
 public class Falsi {
 
-    private String eqaution;
+    private final String eqaution;
 
     public Falsi(String string) {
         this.eqaution = string;
@@ -43,7 +43,7 @@ public class Falsi {
     }
 
     public double falsiAlgorithm(double lowerLimit, double upperLimit, int iteration) {
-//Sprawdzamy czy zadany przedzial jest tym, ktory posiada rozne znaki na krancach przedzialu
+        //Sprawdzamy czy zadany przedzial jest tym, ktory posiada rozne znaki na krancach przedzialu
         //tzn. czy znaduje sie tam miejsce zerowe prawdopodobne przeciecie z osia OX
         if(f(lowerLimit) * f(upperLimit) >= 0) {
             throw new NoZeroException("Podany przedzial nie zawiera miejsca zerowego");

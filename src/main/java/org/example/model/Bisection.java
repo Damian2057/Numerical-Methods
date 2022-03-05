@@ -4,7 +4,7 @@ import org.example.exception.NoZeroException;
 
 public class Bisection {
 
-    private String eqaution;
+    private final String eqaution;
 
     public Bisection(String eqaution) {
         this.eqaution = eqaution;
