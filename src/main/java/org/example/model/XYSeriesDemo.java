@@ -16,6 +16,8 @@ import org.jfree.data.xy.XYSeriesCollection;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class XYSeriesDemo extends ApplicationFrame {
 
@@ -23,23 +25,27 @@ public class XYSeriesDemo extends ApplicationFrame {
 
         super("wykres");
 
-        final XYSeries series = new XYSeries("Random Data");
+        final XYSeries series = new XYSeries("Funkcja");
 
         for(int i=0; i<x.size(); i++) {
             series.add(x.get(i),y.get(i));
         }
 
         final XYSeries osX = new XYSeries("Os X");
-        osX.add(x.get(0).doubleValue(), 1.0);
-        osX.add(x.get(x.size()-1).doubleValue(),1);
+        osX.add(x.get(0).doubleValue(), 0);
+        osX.add(x.get(x.size()-1).doubleValue(),0);
 
-        final Marker start = new ValueMarker(0.0);
-        start.setPaint(Color.green);
+        Collections.sort(y);
+        final XYSeries osY = new XYSeries("Os Y");
+        osY.add(0,y.get(0));
+        osY.add(0,y.get(y.size()-1));
+
 
 
 
         final XYSeriesCollection data = new XYSeriesCollection(series);
         data.addSeries(osX);
+        data.addSeries(osY);
         final JFreeChart chart = ChartFactory.createXYLineChart(
                 "Wykres funkcji",
                 "os X",
