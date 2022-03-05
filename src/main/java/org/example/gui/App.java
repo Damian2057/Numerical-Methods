@@ -7,11 +7,24 @@ import java.util.Scanner;
 import org.example.exception.NoZeroException;
 import org.example.model.Bisection;
 import org.example.model.Falsi;
+import org.example.model.XYSeriesDemo;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 
 public class App extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+
+        final XYSeriesDemo demo = new XYSeriesDemo("XY Series Demo");
+        demo.pack();
+      //  RefineryUtilities.centerFrameOnScreen(demo);
+        demo.setVisible(true);
+
         System.out.println("Podaj wzor funkcji np. sin(x+1): ");
         Scanner scanner= new Scanner(System.in);
         String wzor = scanner.nextLine();
