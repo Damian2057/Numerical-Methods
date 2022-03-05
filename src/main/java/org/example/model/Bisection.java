@@ -12,6 +12,7 @@ public class Bisection {
 
     public double f(double x) {
         //obliczamy wartosc funkcji dla zadanego x
+        //f(x)
         return x*x+x-1;
     }
 

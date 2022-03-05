@@ -2,9 +2,13 @@ package org.example.gui;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+
+import org.mariuszgromada.math.mxparser.*;
+import java.beans.*;
 import java.util.Scanner;
 import org.example.model.Bisection;
 import org.example.model.Falsi;
+import org.mariuszgromada.math.mxparser.Expression;
 
 public class App extends Application {
 
@@ -12,6 +16,10 @@ public class App extends Application {
     public void start(Stage stage) throws Exception {
         Bisection bisection = new Bisection("xd");
         Falsi falsi = new Falsi("xd");
+        Function f = new Function("f(x) = 1/(sin(x*x+1))");
+        Argument x = new Argument("x = 0");
+        Expression expression = new Expression("f(x)",f,x);
+        System.out.println(expression.calculate());
 
 //        double lowerLimit , upperLimit, dokladnosc;
 //
@@ -26,8 +34,8 @@ public class App extends Application {
 //
 //        //wynik
 //        System.out.println(bisection.bisectionAlgorithm(lowerLimit,upperLimit,dokladnosc));
-        System.out.println(bisection.bisectionAlgorithm(0,1,10));
-        System.out.println(falsi.falsiAlgorithm(0,1,10));
+//        System.out.println(bisection.bisectionAlgorithm(0,1,10));
+//        System.out.println(falsi.falsiAlgorithm(0,1,10));
         System.exit(0);
     }
 

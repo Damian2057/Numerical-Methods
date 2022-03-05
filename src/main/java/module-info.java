@@ -4,6 +4,7 @@ module Zadanie1 {
     requires javafx.graphics;
     requires javafx.controls;
     requires java.desktop;
+    requires MathParser.org.mXparser;
 
     opens org.example.model;
     exports org.example.model;
