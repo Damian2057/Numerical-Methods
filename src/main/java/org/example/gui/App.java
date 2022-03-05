@@ -33,14 +33,20 @@ public class App extends Application {
 
         Bisection bisection = new Bisection(wzor);
         Falsi falsi = new Falsi(wzor);
+        double bisectionZero = 0;
+        double falsiZero = 0;
         try {
             if(stop >=1) {
                 int stop2 = (int) stop;
-                System.out.println(bisection.bisectionAlgorithm(lowerLimit,upperLimit,stop2));
-                System.out.println(falsi.falsiAlgorithm(lowerLimit,upperLimit,stop2));
+                bisectionZero = bisection.bisectionAlgorithm(lowerLimit,upperLimit,stop2);
+                falsiZero = falsi.falsiAlgorithm(lowerLimit,upperLimit,stop2);
+                System.out.println(bisectionZero);
+                System.out.println(falsiZero);
             } else {
-                System.out.println(bisection.bisectionAlgorithm(lowerLimit, upperLimit, stop));
-                System.out.println(falsi.falsiAlgorithm(lowerLimit, upperLimit, stop));
+                bisectionZero = bisection.bisectionAlgorithm(lowerLimit, upperLimit, stop);
+                falsiZero = falsi.falsiAlgorithm(lowerLimit, upperLimit, stop);
+                System.out.println(bisectionZero);
+                System.out.println(falsiZero);
             }
         } catch (NoZeroException e) {
             System.out.println("Funkcja wydaje sie nie miec miejsca zerowego na podanym przedziale");
@@ -58,9 +64,15 @@ public class App extends Application {
             index+=Math.abs((upperLimit-lowerLimit)*(1.0/300));
         }
 
-        final XYSeriesDemo demo = new XYSeriesDemo(x,y);
-        demo.pack();
-        demo.setVisible(true);
+        //Bisection graph
+        final XYSeriesDemo demoBisection = new XYSeriesDemo("Bisekcja",x,y, bisectionZero);
+        demoBisection.pack();
+        demoBisection.setVisible(true);
+
+        //Falsi graph
+        final XYSeriesDemo demoFalsi = new XYSeriesDemo("Falsi",x,y, falsiZero);
+        demoFalsi.pack();
+        demoFalsi.setVisible(true);
 
         Platform.exit();
     }

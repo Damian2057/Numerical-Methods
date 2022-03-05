@@ -23,20 +23,14 @@ import java.util.Collections;
 
 public class XYSeriesDemo extends ApplicationFrame {
 
-    public XYSeriesDemo(ArrayList<Double> x, ArrayList<Double> y) {
+    public XYSeriesDemo(String title,ArrayList<Double> x, ArrayList<Double> y, double zero) {
 
-        super("wykres");
+        super("wykres"+ title);
 
         final XYSeries series = new XYSeries("f(x)");
 
-        double m0 = 0.0, diff = y.get(0);
         for(int i=0; i<x.size(); i++) {
             series.add(x.get(i),y.get(i));
-
-            if(Math.abs(y.get(i)) < diff) {
-                m0 = x.get(i);
-                diff = Math.abs(y.get(i));
-            }
         }
 
         final XYSeries osX = new XYSeries("Oś X");
@@ -49,7 +43,7 @@ public class XYSeriesDemo extends ApplicationFrame {
         osY.add(0,y.get(y.size()-1));
 
         final XYSeries miejsceZerowe = new XYSeries("Miejsce zerowe");
-        miejsceZerowe.add(m0,0);
+        miejsceZerowe.add(zero,0);
 
         final XYSeriesCollection data = new XYSeriesCollection(series);
         data.addSeries(osX);
@@ -59,7 +53,7 @@ public class XYSeriesDemo extends ApplicationFrame {
 
 
         final JFreeChart chart = ChartFactory.createXYLineChart(
-                "Wykres funkcji",
+                "Wykres funkcji z algorytmem "+title,
                 "oś X",
                 "oś Y",
                 data,
