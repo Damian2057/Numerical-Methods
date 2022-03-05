@@ -4,14 +4,15 @@ import org.example.exception.NoZeroException;
 
 public class Falsi {
 
-    private String string;
+    private String eqaution;
 
     public Falsi(String string) {
-        this.string = string;
+        this.eqaution = string;
     }
 
     public double f(double x) {
-        return x*x+x-1;
+        functionInterpreter functionInterpreter = new functionInterpreter(eqaution);
+        return functionInterpreter.f(x);
     }
 
     public double falsiAlgorithm(double lowerLimit, double upperLimit, double epsilon) throws Exception {
