@@ -3,27 +3,20 @@ package org.example.gui;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 import org.example.exception.NoZeroException;
 import org.example.model.Bisection;
 import org.example.model.Falsi;
 import org.example.model.XYSeriesDemo;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
 
 public class App extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
 
-        final XYSeriesDemo demo = new XYSeriesDemo("XY Series Demo");
-        demo.pack();
-      //  RefineryUtilities.centerFrameOnScreen(demo);
-        demo.setVisible(true);
+
 
         System.out.println("Podaj wzor funkcji np. sin(x+1): ");
         Scanner scanner= new Scanner(System.in);
@@ -54,6 +47,21 @@ public class App extends Application {
         } catch (Exception e) {
             System.out.println("Wykryto blad");
         }
+
+        double index = lowerLimit;
+        ArrayList<Double> x = new ArrayList<>();
+        ArrayList<Double> y = new ArrayList<>();
+
+        while(index <= upperLimit) {
+            x.add(index);
+            y.add(bisection.f(index));
+            index+=Math.abs((upperLimit-lowerLimit)*(1.0/100));
+        }
+
+        final XYSeriesDemo demo = new XYSeriesDemo(x,y);
+        demo.pack();
+        demo.setVisible(true);
+
         Platform.exit();
     }
 
