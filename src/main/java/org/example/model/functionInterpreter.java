@@ -6,7 +6,7 @@ import org.mariuszgromada.math.mxparser.Function;
 
 public class functionInterpreter {
 
-    private String equation;
+    private final String equation;
 
     public functionInterpreter(String equation) {
         this.equation = equation;

@@ -41,7 +41,6 @@ public class App extends Application {
         } catch (Exception e) {
             System.out.println("Wykryto blad");
         }
-
         Platform.exit();
     }
 
