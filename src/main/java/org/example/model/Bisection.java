@@ -15,7 +15,7 @@ public class Bisection {
         return functionInterpreter.f(x);
     }
 
-    public double bisectionAlgorithm(double lowerLimit, double upperLimit, double epsilon) throws Exception {
+    public double bisectionAlgorithmE(double lowerLimit, double upperLimit, double epsilon) throws Exception {
         if(f(lowerLimit) * f(upperLimit) >= 0) {
             throw new NoZeroException("Podany przedzial nie zawiera miejsca zerowego");
         }
@@ -27,11 +27,15 @@ public class Bisection {
         } else {
             //Jezeli nie, Szukamy miejsca zerowego tak dlugo az osiagniemy zadana dokladnosc.
             double temp = x1;
-            while (Math.abs(x1-temp) < epsilon) {
+            while (Math.abs(upperLimit-lowerLimit) > epsilon && upperLimit != lowerLimit) {
                 // w kazdej iteracji biezemy srodek predzialu/kazdego kolejnego przedzialu
                 //z kazdym obiegiem przeszukiwany przedzial sie zmniejsza
+
                 temp = x1;
                 x1 = (lowerLimit+upperLimit)/2.0;
+                if(Math.abs(x1-temp) < epsilon && Math.abs(x1-temp) != 0) {
+                    return x1;
+                }
 
                 //jezeli znaki na krancach przedzialu sa rozne +-<0 oznacza to ze
                 // w szukanym przedzialne napewno jest miejsce zerowe tzn. przecięcie z osią OX.

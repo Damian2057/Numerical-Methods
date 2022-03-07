@@ -42,7 +42,7 @@ public class App extends Application {
                 System.out.println(bisectionZero);
                 System.out.println(falsiZero);
             } else {
-                bisectionZero = bisection.bisectionAlgorithm(lowerLimit, upperLimit, stop);
+                bisectionZero = bisection.bisectionAlgorithmE(lowerLimit, upperLimit, stop);
                 falsiZero = falsi.falsiAlgorithm(lowerLimit, upperLimit, stop);
                 System.out.println(bisectionZero);
                 System.out.println(falsiZero);
