@@ -38,13 +38,13 @@ public class App extends Application {
             if(stop >=1) {
                 int stop2 = (int) stop;
                 bisectionZero = bisection.bisectionAlgorithm(lowerLimit,upperLimit,stop2);
-                falsiZero = falsi.falsiAlgorithm(lowerLimit,upperLimit,stop2);
                 System.out.println(bisectionZero);
+                falsiZero = falsi.falsiAlgorithm(lowerLimit,upperLimit,stop2);
                 System.out.println(falsiZero);
             } else {
                 bisectionZero = bisection.bisectionAlgorithmE(lowerLimit, upperLimit, stop);
-                falsiZero = falsi.falsiAlgorithmE(lowerLimit, upperLimit, stop);
                 System.out.println(bisectionZero);
+                falsiZero = falsi.falsiAlgorithmE(lowerLimit, upperLimit, stop);
                 System.out.println(falsiZero);
             }
         } catch (NoZeroException e) {
@@ -53,15 +53,26 @@ public class App extends Application {
             System.out.println("Wykryto blad");
         }
 
-        double index = lowerLimit;
+        double index = 0;
+        double value = 0;
+
+        if(lowerLimit < upperLimit) {
+            index = lowerLimit;
+            value = upperLimit;
+        } else {
+            index = upperLimit;
+            value = lowerLimit;
+        }
+
         ArrayList<Double> x = new ArrayList<>();
         ArrayList<Double> y = new ArrayList<>();
 
-        while(index <= upperLimit) {
+        while(index <= value) {
             x.add(index);
             y.add(bisection.f(index));
             index+=Math.abs((upperLimit-lowerLimit)*(1.0/300));
         }
+
 
         //Bisection graph
         final XYSeriesDemo demoBisection = new XYSeriesDemo("Bisekcja",x,y, bisectionZero);

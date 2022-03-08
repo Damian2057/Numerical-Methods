@@ -21,7 +21,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
                 <configuration>
-                    <mainClass>crypto.project.GUI.App</mainClass>
+                    <mainClass>org.example.gui.App</mainClass>
                 </configuration>
             </plugin>
             <plugin>
