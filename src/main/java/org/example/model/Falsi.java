@@ -4,14 +4,13 @@ import org.example.exception.NoZeroException;
 
 public class Falsi {
 
-    private final String eqaution;
+    private functionInterpreter functionInterpreter;
 
-    public Falsi(String string) {
-        this.eqaution = string;
+    public Falsi(org.example.model.functionInterpreter functionInterpreter) {
+        this.functionInterpreter = functionInterpreter;
     }
 
     public double f(double x) {
-        functionInterpreter functionInterpreter = new functionInterpreter(eqaution);
         return functionInterpreter.f(x);
     }
 
