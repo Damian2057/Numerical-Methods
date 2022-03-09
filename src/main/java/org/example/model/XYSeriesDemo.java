@@ -20,7 +20,8 @@ public class XYSeriesDemo extends ApplicationFrame {
 
         final XYSeries series = new XYSeries("f(x)");
 
-        for(int i=0; i<x.size(); i++) {
+        int i=0;
+        for(i=0; i<x.size(); i++) {
             series.add(x.get(i),y.get(i));
         }
 
@@ -32,8 +33,8 @@ public class XYSeriesDemo extends ApplicationFrame {
 
         Collections.sort(copy);
         final XYSeries osY = new XYSeries("Oś Y");
-        osY.add(0,copy.get(0));
-        osY.add(0,copy.get(copy.size()-1));
+        osY.add((x.get(i-1)+x.get(0))/2,copy.get(0));
+        osY.add((x.get(i-1)+x.get(0))/2,copy.get(copy.size()-1));
 
 
         final XYSeries miejsceZerowe = new XYSeries("Miejsce zerowe");
