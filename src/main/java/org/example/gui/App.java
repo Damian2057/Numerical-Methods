@@ -7,35 +7,40 @@ import org.example.exception.NoZeroException;
 import org.example.model.*;
 import org.example.model.functiontypes.Exponential;
 import org.example.model.functiontypes.Polunomial;
+import org.example.model.functiontypes.Trigonometry;
 
 public class App {
 
     public static void main(String[] args) {
         Scanner scanner= new Scanner(System.in);
 
-        System.out.println("Podaj pierwszy typ funkcji (tryg/wiel/wyk): ");
-        String wybor1 = scanner.nextLine();
+        int n = 1;
+        System.out.println("Podaj liczbe zlozen:");
+        n = Integer.parseInt(scanner.nextLine());
 
-        functionInterpreter functionInterpreter = null;
-
-        switch (wybor1) {
-            case "tryg"-> {
-
-            }
-            case "wyk"-> {
-                Exponential exponential = new Exponential();
-                functionInterpreter = new functionInterpreter(exponential);
-            }
-            case "wiel"-> {
-                Polunomial polunomial = new Polunomial();
-                functionInterpreter = new functionInterpreter(polunomial);
-
-            }
-            default-> {
-                System.out.println("Blad wprowadzania danych!");
-                System.exit(0);
+        String wybor1 = "";
+        StringBuilder type = new StringBuilder();
+        for (int i = 0; i < n; i++) {
+            System.out.println("Podaj "+(i+1)+" typ funkcji (tryg/wiel/wyk): ");
+            wybor1 = scanner.nextLine();
+            switch (wybor1) {
+                case "tryg"-> {
+                    type.append("T");
+                }
+                case "wyk"-> {
+                    type.append("Z");
+                }
+                case "wiel"-> {
+                    type.append("W");
+                }
+                default-> {
+                    System.out.println("Blad wprowadzania danych!");
+                    i++;
+                }
             }
         }
+
+        functionInterpreter functionInterpreter = new functionInterpreter(type.toString());
 
         //podajemy dolny i gorny przedzial oraz liczbe iteracji/dokladnosc
         double lowerLimit , upperLimit, stop;
