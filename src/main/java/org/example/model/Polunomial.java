@@ -1,9 +1,9 @@
-package org.example.exception;
+package org.example.model;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Polunomial extends Action{
+public class Polunomial extends Action {
     private ArrayList<Double> numbers = new ArrayList<>();
     private int n;
 
