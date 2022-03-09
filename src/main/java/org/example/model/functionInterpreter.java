@@ -30,14 +30,6 @@ public class functionInterpreter {
         return sum;
     }
 
-    private double potD(double x, double pote) {
-        double sum=1;
-        for (int i = 0; i < pote; i++) {
-            sum = sum*x;
-        }
-        return sum;
-    }
-
     public double f(double x) {
         switch (type) {
             case "W" -> {
