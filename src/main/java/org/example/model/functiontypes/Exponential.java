@@ -8,7 +8,7 @@ public class Exponential {
 
     public Exponential() {
         Scanner scanner= new Scanner(System.in);
-        System.out.println("Podaj podstawe funkcj wykladniczej");
+        System.out.println("Podaj podstawe funkcji wykladniczej");
         this.base = Double.parseDouble(scanner.nextLine());
         System.out.println("Podaj wyraz wolny");
         this.freeFactor = Double.parseDouble(scanner.nextLine());

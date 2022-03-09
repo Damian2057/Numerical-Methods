@@ -50,7 +50,7 @@ public class functionInterpreter {
             } case "T" -> {
 
             } case "Z" -> {
-                return Math.pow(exponential.getBase(),x)- exponential.getFreeFactor();
+                return Math.pow(exponential.getBase(),x) + exponential.getFreeFactor();
             }
         }
     return 0;
