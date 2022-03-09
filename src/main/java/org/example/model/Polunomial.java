@@ -19,4 +19,12 @@ public class Polunomial extends Action {
         System.out.println("Podaj wyraz wolny");
         numbers.add(Double.parseDouble(scanner.nextLine()));
     }
+
+    public ArrayList<Double> getNumbers() {
+        return numbers;
+    }
+
+    public int getN() {
+        return n;
+    }
 }
