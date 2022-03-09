@@ -26,8 +26,8 @@ public class XYSeriesDemo extends ApplicationFrame {
         }
 
         final XYSeries osX = new XYSeries("Oś X");
-        osX.add(x.get(0).doubleValue(), (y.get(i-1)+x.get(0))/2);
-        osX.add(x.get(x.size()-1).doubleValue(),(x.get(i-1)+x.get(0))/2);
+        osX.add(x.get(0).doubleValue(), (y.get(i-1)+y.get(0))/2);
+        osX.add(x.get(x.size()-1).doubleValue(),(y.get(i-1)+y.get(0))/2);
 
         ArrayList<Double> copy = (ArrayList<Double>) new ArrayList<>(y).clone();
 
