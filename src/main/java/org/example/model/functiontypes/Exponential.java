@@ -1,8 +1,8 @@
-package org.example.model;
+package org.example.model.functiontypes;
 
 import java.util.Scanner;
 
-public class Exponential extends Action {
+public class Exponential {
     private double base;
     private double freeFactor;
 

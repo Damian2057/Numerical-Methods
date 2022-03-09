@@ -4,14 +4,13 @@ import org.example.exception.NoZeroException;
 
 public class Bisection {
 
-    private final String eqaution;
+    private functionInterpreter functionInterpreter;
 
-    public Bisection(String eqaution) {
-        this.eqaution = eqaution;
+    public Bisection(org.example.model.functionInterpreter functionInterpreter) {
+        this.functionInterpreter = functionInterpreter;
     }
 
     public double f(double x) {
-        functionInterpreter functionInterpreter = new functionInterpreter(eqaution);
         return functionInterpreter.f(x);
     }
 
