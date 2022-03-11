@@ -45,11 +45,11 @@ public class App {
         //podajemy dolny i gorny przedzial oraz liczbe iteracji/dokladnosc
         double lowerLimit , upperLimit, stop;
         System.out.print("Podaj dolny przedzial: ");
-        lowerLimit = scanner.nextDouble();
+        lowerLimit = Double.parseDouble(scanner.nextLine());;
         System.out.print("Podaj gorny przedzial: ");
-        upperLimit = scanner.nextDouble();
+        upperLimit = Double.parseDouble(scanner.nextLine());
         System.out.println("Podaj warunek stopu (liczba >=1 to liczba iteracji, <1 to dokladnosc): ");
-        stop = scanner.nextDouble();
+        stop = Double.parseDouble(scanner.nextLine());
 
         Bisection bisection = new Bisection(functionInterpreter);
         Falsi falsi = new Falsi(functionInterpreter);

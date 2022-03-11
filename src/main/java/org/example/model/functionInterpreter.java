@@ -80,6 +80,18 @@ public class functionInterpreter {
                 return Horner(polunomial,TrigSum(trigonometry,x));
             } case "WZ" -> {
                 return Horner(polunomial,ExpSum(exponential,x));
+            } case "WTZ" -> {
+                return Horner(polunomial, TrigSum(trigonometry, ExpSum(exponential, x)));
+            } case "WZT" -> {
+                return Horner(polunomial, ExpSum(exponential, TrigSum(trigonometry, x)));
+            } case "TWZ" -> {
+                return TrigSum(trigonometry,Horner(polunomial,ExpSum(exponential, x)));
+            } case "TZW" -> {
+                return TrigSum(trigonometry,ExpSum(exponential,Horner(polunomial, x)));
+            } case "ZWT" -> {
+                return ExpSum(exponential,Horner(polunomial,TrigSum(trigonometry, x)));
+            } case "ZTW" -> {
+                return ExpSum(exponential,TrigSum(trigonometry,Horner(polunomial, x)));
             }
         }
     return 0;
