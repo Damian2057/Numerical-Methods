@@ -15,8 +15,15 @@ public class App {
         Scanner scanner= new Scanner(System.in);
 
         int n = 1;
-        System.out.println("Podaj liczbe zlozen:");
-        n = Integer.parseInt(scanner.nextLine());
+        boolean flag = false;
+        while(flag == false) {
+            System.out.println("Podaj liczbe zlozen:");
+            n = Integer.parseInt(scanner.nextLine());
+            if(n == 1 || n==2 || n==3) flag = true;
+        }
+
+
+
 
         String wybor1 = "";
         StringBuilder type = new StringBuilder();
