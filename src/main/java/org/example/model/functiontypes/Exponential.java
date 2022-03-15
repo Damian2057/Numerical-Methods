@@ -7,9 +7,15 @@ public class Exponential {
     private double freeFactor;
 
     public Exponential() {
+        boolean flag = true;
         Scanner scanner= new Scanner(System.in);
-        System.out.println("Podaj podstawe funkcji wykladniczej");
-        this.base = Double.parseDouble(scanner.nextLine());
+        while (flag) {
+            System.out.println("Podaj podstawe funkcji wykladniczej");
+            this.base = Double.parseDouble(scanner.nextLine());
+            if(base > 0) {
+                flag = false;
+            }
+        }
         System.out.println("Podaj wyraz wolny");
         this.freeFactor = Double.parseDouble(scanner.nextLine());
     }

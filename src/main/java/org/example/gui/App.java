@@ -59,17 +59,17 @@ public class App {
             if(stop >=1) {
                 int stop2 = (int) stop;
                 bisectionZero = bisection.bisectionAlgorithm(lowerLimit,upperLimit,stop2);
-                System.out.println("B "+ bisectionZero);
                 falsiZero = falsi.falsiAlgorithm(lowerLimit,upperLimit,stop2);
+                System.out.println("B "+ bisectionZero);
                 System.out.println("F "+ falsiZero);
             } else {
                 bisectionZero = bisection.bisectionAlgorithmE(lowerLimit, upperLimit, stop);
-                System.out.println("B "+ bisectionZero);
                 falsiZero = falsi.falsiAlgorithmE(lowerLimit, upperLimit, stop);
+                System.out.println("B "+ bisectionZero);
                 System.out.println("F "+ falsiZero);
             }
         } catch (NoZeroException e) {
-            System.out.println("Funkcja wydaje sie nie miec miejsca zerowego na podanym przedziale");
+            System.out.println("Funkcja na podanym przedziale wydaje sie nie spelniac warunku roznego znaku na krancach przedzialu");
         } catch (Exception e) {
             System.out.println("Wykryto blad");
         }
