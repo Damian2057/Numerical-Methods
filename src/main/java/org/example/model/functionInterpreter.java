@@ -60,7 +60,7 @@ public class functionInterpreter {
         return Math.pow(exponential.getBase(),x) + exponential.getFreeFactor();
     }
 
-    public double f(double x) {
+    public double function(double x) {
         switch (type) {
             case "W" -> {
                 return Horner(polunomial,x);

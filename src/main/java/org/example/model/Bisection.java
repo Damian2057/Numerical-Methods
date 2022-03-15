@@ -2,24 +2,20 @@ package org.example.model;
 
 import org.example.exception.NoZeroException;
 
-public class Bisection {
-
-    private functionInterpreter functionInterpreter;
+public class Bisection extends LogicLayer{
 
     public Bisection(org.example.model.functionInterpreter functionInterpreter) {
-        this.functionInterpreter = functionInterpreter;
+        super(functionInterpreter);
     }
 
     public double f(double x) {
-        return functionInterpreter.f(x);
+        return functionInterpreter.function(x);
     }
 
     public double bisectionAlgorithmE(double lowerLimit, double upperLimit, double epsilon) throws Exception {
 
         //sprawdzenie znaku na krancach przedzialow
-        if(f(lowerLimit) * f(upperLimit) >= 0) {
-            throw new NoZeroException("Podany przedzial nie zawiera miejsca zerowego");
-        }
+        checkValid(lowerLimit, upperLimit);
         //Pierwszy krok sprawdzamy, czy srodek przedzialu nie jest szukanym rozwiazaniem (lowerLimit+upperLimit)/2
         double x1 = (lowerLimit+upperLimit)/2.0;
         if(f(x1) == 0) {

@@ -2,23 +2,22 @@ package org.example.model;
 
 import org.example.exception.NoZeroException;
 
-public class Falsi {
+public class Falsi extends LogicLayer{
 
-    private functionInterpreter functionInterpreter;
+
 
     public Falsi(org.example.model.functionInterpreter functionInterpreter) {
-        this.functionInterpreter = functionInterpreter;
+        super(functionInterpreter);
     }
 
     public double f(double x) {
-        return functionInterpreter.f(x);
+
+        return functionInterpreter.function(x);
     }
 
     public double falsiAlgorithmE(double lowerLimit, double upperLimit, double epsilon) throws Exception {
 
-        if(f(lowerLimit) * f(upperLimit) >= 0) {
-            throw new NoZeroException("Podany przedzial nie zawiera miejsca zerowego");
-        }
+        checkValid(lowerLimit, upperLimit);
 
         double x0 = upperLimit;
         double temp = lowerLimit;
@@ -45,9 +44,8 @@ public class Falsi {
     public double falsiAlgorithm(double lowerLimit, double upperLimit, int iteration) {
         //Sprawdzamy czy zadany przedzial jest tym, ktory posiada rozne znaki na krancach przedzialu
         //tzn. czy znaduje sie tam miejsce zerowe prawdopodobne przeciecie z osia OX
-        if(f(lowerLimit) * f(upperLimit) >= 0) {
-            throw new NoZeroException("Podany przedzial nie zawiera miejsca zerowego");
-        }
+        checkValid(lowerLimit, upperLimit);
+
         //Ustawiamy pkt chwilowe.
         double x1 = lowerLimit;
         //zmienna do przechowywania xi-1
