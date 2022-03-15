@@ -15,10 +15,12 @@ public class Bisection {
     }
 
     public double bisectionAlgorithmE(double lowerLimit, double upperLimit, double epsilon) throws Exception {
+
+        //sprawdzenie znaku na krancach przedzialow
         if(f(lowerLimit) * f(upperLimit) >= 0) {
             throw new NoZeroException("Podany przedzial nie zawiera miejsca zerowego");
         }
-        //Pierwszy krok sprawdzamy, czy srodek przedzial nie jest szukanym rozwiazaniem (lowerLimit+upperLimit)/2
+        //Pierwszy krok sprawdzamy, czy srodek przedzialu nie jest szukanym rozwiazaniem (lowerLimit+upperLimit)/2
         double x1 = (lowerLimit+upperLimit)/2.0;
         if(f(x1) == 0) {
             //jezeli tak zwracamy wartosc x1 czyli szukane miejsce zerowe na podanym przedziale.

@@ -5,9 +5,6 @@ import java.util.Scanner;
 
 import org.example.exception.NoZeroException;
 import org.example.model.*;
-import org.example.model.functiontypes.Exponential;
-import org.example.model.functiontypes.Polunomial;
-import org.example.model.functiontypes.Trigonometry;
 
 public class App {
 
@@ -16,14 +13,11 @@ public class App {
 
         int n = 1;
         boolean flag = false;
-        while(flag == false) {
+        while(!flag) {
             System.out.println("Podaj liczbe zlozen:");
             n = Integer.parseInt(scanner.nextLine());
             if(n == 1 || n==2 || n==3) flag = true;
         }
-
-
-
 
         String wybor1 = "";
         StringBuilder type = new StringBuilder();
@@ -42,7 +36,7 @@ public class App {
                 }
                 default-> {
                     System.out.println("Blad wprowadzania danych!");
-                    i++;
+                    i--;
                 }
             }
         }
@@ -60,7 +54,7 @@ public class App {
 
         Bisection bisection = new Bisection(functionInterpreter);
         Falsi falsi = new Falsi(functionInterpreter);
-        double bisectionZero = 0;
+        double bisectionZero = 0; //miejsca zerowe, ktore bedziemy przekazywac do rysowania wykresu
         double falsiZero = 0;
         try {
             if(stop >=1) {
@@ -80,7 +74,9 @@ public class App {
         } catch (Exception e) {
             System.out.println("Wykryto blad");
         }
+        //dotad algorytmy obliczaja miejsca zerowe
 
+        //odtad zaczynamy rysowac wykres
         double index = 0;
         double value = 0;
 
@@ -98,7 +94,7 @@ public class App {
         while(index <= value) {
             x.add(index);
             y.add(bisection.f(index));
-            index+=Math.abs((upperLimit-lowerLimit)*(1.0/300));
+            index+=Math.abs((upperLimit-lowerLimit)*(1.0/300)); // liczba skokow rysowania wykresu
         }
 
 
