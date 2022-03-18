@@ -11,7 +11,6 @@ import java.util.Scanner;
 public class FileReader implements AutoCloseable{
 
     private int numberOfEquations = 0;
-    private int numberOfCoefficients = 0;
     private final List<Integer> valueList = new ArrayList<>();
 
     public int[][] getSystemOfEquations(String path) throws IOException {
@@ -24,10 +23,11 @@ public class FileReader implements AutoCloseable{
             String line = scanner.nextLine();
             parseData(line);
         }
-        int[][] temp = new int[numberOfEquations][numberOfCoefficients];
+
+        int[][] temp = new int[numberOfEquations][numberOfEquations+1];
         int index = 0;
         for (int i = 0; i < numberOfEquations; i++) {
-            for (int j = 0; j < numberOfCoefficients; j++) {
+            for (int j = 0; j < numberOfEquations; j++) {
                 temp[i][j] = valueList.get(index);
                 index ++;
             }
@@ -37,9 +37,8 @@ public class FileReader implements AutoCloseable{
 
     private void parseData(String str) {
         Scanner lineScanner = new Scanner(str).useDelimiter(" ");
-        if(numberOfEquations == 0 && numberOfCoefficients == 0) {
+        if(numberOfEquations == 0) {
             this.numberOfEquations = Integer.parseInt(lineScanner.next());
-            this.numberOfCoefficients = Integer.parseInt(lineScanner.next());
         }
         while (lineScanner.hasNext()) {
             valueList.add(Integer.parseInt(lineScanner.next()));
@@ -50,9 +49,6 @@ public class FileReader implements AutoCloseable{
         return numberOfEquations;
     }
 
-    public int getNumberOfCoefficients() {
-        return numberOfCoefficients;
-    }
 
     @Override
     public void close() throws Exception {

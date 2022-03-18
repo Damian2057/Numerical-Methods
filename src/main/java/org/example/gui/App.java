@@ -18,18 +18,15 @@ public class App {
         FileReader reader = new FileReader();
         int[][] matrix = null;
         int numberOfEquations = 0;
-        int numberOfCoefficients = 0;
 
         try {
             matrix = reader.getSystemOfEquations("@../../equations/equation.txt");
             numberOfEquations = reader.getNumberOfEquations();
-            numberOfCoefficients = reader.getNumberOfCoefficients();
-           //System.out.println(matrix[0][1]);
         } catch (Exception e) {
-            System.out.println("there was an error loading the equation");
+           e.printStackTrace();
         }
 
-        JacobMethod jacobMethod = new JacobMethod(numberOfEquations,numberOfCoefficients,matrix);
+        JacobMethod jacobMethod = new JacobMethod(numberOfEquations,matrix);
         int[] result = new int[numberOfEquations];
 
         try {
@@ -50,7 +47,7 @@ public class App {
 
         System.out.println("The solution to the equation is");
         for (int i = 0; i < numberOfEquations; i++) {
-            System.out.println("x" + (i+1) + " = " +result[i]);
+          //  System.out.println("x" + (i+1) + " = " +result[i]);
         }
 
 
