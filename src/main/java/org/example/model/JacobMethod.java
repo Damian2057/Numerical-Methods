@@ -2,8 +2,8 @@ package org.example.model;
 
 public class JacobMethod {
 
-    private int numberOfEquations;
-    private int numberOfCoefficients;
+    private final int numberOfEquations;
+    private final int numberOfCoefficients;
     private int[][] matrix;
 
     public JacobMethod(int numberOfEquations, int numberOfCoefficients, int[][] matrix) {
