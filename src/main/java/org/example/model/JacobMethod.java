@@ -3,12 +3,10 @@ package org.example.model;
 public class JacobMethod {
 
     private final int numberOfEquations;
-    private final int numberOfCoefficients;
     private int[][] matrix;
 
-    public JacobMethod(int numberOfEquations, int numberOfCoefficients, int[][] matrix) {
+    public JacobMethod(int numberOfEquations, int[][] matrix) {
         this.numberOfEquations = numberOfEquations;
-        this.numberOfCoefficients = numberOfCoefficients;
         this.matrix = matrix;
     }
 
