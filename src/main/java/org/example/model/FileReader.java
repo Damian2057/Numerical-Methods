@@ -11,9 +11,9 @@ import java.util.Scanner;
 public class FileReader implements AutoCloseable{
 
     private int numberOfEquations = 0;
-    private final List<Integer> valueList = new ArrayList<>();
+    private final List<Double> valueList = new ArrayList<>();
 
-    public int[][] getSystemOfEquations(String path) throws IOException {
+    public double[][] getSystemOfEquations(String path) throws IOException {
         File file = new File(path);
         if(!file.exists()) {
             throw new FileOperationException("There was a problem with reading the file ");
@@ -24,7 +24,7 @@ public class FileReader implements AutoCloseable{
             parseData(line);
         }
 
-        int[][] temp = new int[numberOfEquations][numberOfEquations+1];
+        double[][] temp = new double[numberOfEquations][numberOfEquations+1];
         int index = 0;
         for (int i = 0; i < numberOfEquations; i++) {
             for (int j = 0; j < numberOfEquations+1; j++) {
@@ -41,7 +41,7 @@ public class FileReader implements AutoCloseable{
             this.numberOfEquations = Integer.parseInt(lineScanner.next());
         }
         while (lineScanner.hasNext()) {
-            valueList.add(Integer.parseInt(lineScanner.next()));
+            valueList.add(Double.parseDouble(lineScanner.next()));
         }
     }
 

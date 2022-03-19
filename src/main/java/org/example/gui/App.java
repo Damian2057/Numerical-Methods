@@ -8,17 +8,6 @@ import org.example.model.*;
 public class App {
 
 
-    public static void showMatrix(int[][] matrix, int numberOfEquations) {
-        StringBuilder s = new StringBuilder();
-
-        for (int i = 0; i < numberOfEquations; i++) {
-            for (int j = 0; j < numberOfEquations+1; j++) {
-                s.append(matrix[i][j]).append(" ");
-            }
-            s.append("\n");
-        }
-        System.out.println(s.toString());
-    }
 
     public static void main(String[] args) {
 
@@ -29,7 +18,7 @@ public class App {
         stop = Double.parseDouble(scanner.nextLine());
 
         FileReader reader = new FileReader();
-        int[][] matrix = null;
+        double[][] matrix = null;
         int numberOfEquations = 0;
 
         try {
@@ -39,10 +28,10 @@ public class App {
            e.printStackTrace();
         }
 
-        showMatrix(matrix,numberOfEquations);
+        //showMatrix(matrix,numberOfEquations);
 
         JacobMethod jacobMethod = new JacobMethod(numberOfEquations,matrix);
-        int[] result = new int[numberOfEquations];
+        double[] result = new double[numberOfEquations];
 
         try {
             if(stop >=1) {
@@ -55,6 +44,7 @@ public class App {
             System.out.println(e.getMessage());
             return;
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("Error occurred");
             return;
         }
@@ -62,7 +52,7 @@ public class App {
 
         System.out.println("The solution to the equation is");
         for (int i = 0; i < numberOfEquations; i++) {
-          //  System.out.println("x" + (i+1) + " = " +result[i]);
+             System.out.println("x" + (i+1) + " = " +result[i]);
         }
 
 
