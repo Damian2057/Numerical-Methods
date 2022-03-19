@@ -27,7 +27,7 @@ public class FileReader implements AutoCloseable{
         int[][] temp = new int[numberOfEquations][numberOfEquations+1];
         int index = 0;
         for (int i = 0; i < numberOfEquations; i++) {
-            for (int j = 0; j < numberOfEquations; j++) {
+            for (int j = 0; j < numberOfEquations+1; j++) {
                 temp[i][j] = valueList.get(index);
                 index ++;
             }

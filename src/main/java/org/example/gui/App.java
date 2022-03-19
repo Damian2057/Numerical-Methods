@@ -7,6 +7,19 @@ import org.example.model.*;
 
 public class App {
 
+
+    public static void showMatrix(int[][] matrix, int numberOfEquations) {
+        StringBuilder s = new StringBuilder();
+
+        for (int i = 0; i < numberOfEquations; i++) {
+            for (int j = 0; j < numberOfEquations+1; j++) {
+                s.append(matrix[i][j]+" ");
+            }
+            s.append("\n");
+        }
+        System.out.println(s.toString());
+    }
+
     public static void main(String[] args) {
 
         Scanner scanner= new Scanner(System.in);
@@ -25,6 +38,8 @@ public class App {
         } catch (Exception e) {
            e.printStackTrace();
         }
+
+        showMatrix(matrix,numberOfEquations);
 
         JacobMethod jacobMethod = new JacobMethod(numberOfEquations,matrix);
         int[] result = new int[numberOfEquations];
