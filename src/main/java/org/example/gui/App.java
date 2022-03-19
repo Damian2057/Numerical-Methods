@@ -13,7 +13,7 @@ public class App {
 
         for (int i = 0; i < numberOfEquations; i++) {
             for (int j = 0; j < numberOfEquations+1; j++) {
-                s.append(matrix[i][j]+" ");
+                s.append(matrix[i][j]).append(" ");
             }
             s.append("\n");
         }
