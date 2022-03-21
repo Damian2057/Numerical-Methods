@@ -1,19 +1,21 @@
 package org.example.model;
 
+import org.example.exception.JacobConditionException;
+
 public class JacobMethod {
 
     private final int numberOfEquations;
     private double[][] matrix; //nasza macierz wraz z wynikami
     private double[][] M; //uklad rownan bez wynikow
-    private double[] b; //wektor, wyrazy wolne
 
     private double[] currentX; //wynik 1
     private double[] prevX; //wynik 2
 
-    double[][] copyMatrix() {
-        double[][] temp = new double[numberOfEquations][numberOfEquations+1];
-        for (int i = 0; i < numberOfEquations; i++) {
-            for (int j = 0; j < numberOfEquations+1; j++) {
+
+    double[][] copyMatrix(int x, int y) {
+        double[][] temp = new double[x][y];
+        for (int i = 0; i < x; i++) {
+            for (int j = 0; j < y; j++) {
                 temp[i][j] = matrix[i][j];
             }
         }
@@ -24,23 +26,16 @@ public class JacobMethod {
         this.numberOfEquations = numberOfEquations;
         this.matrix = matrix;
 
-        b = new double[numberOfEquations];
         M = new double[numberOfEquations][numberOfEquations];
         currentX = new double[numberOfEquations];
         prevX = new double[numberOfEquations];
 
-        //wczytanie rownan do macierzy_f
+        //wczytanie rownan do M
         for (int i = 0; i < numberOfEquations; i++) {
             for (int j = 0; j < numberOfEquations; j++) {
                 M[i][j] = matrix[i][j];
             }
         }
-
-        //wczytanie wektora b
-        for(int i=0; i<numberOfEquations; i++){
-            b[i] = matrix[i][numberOfEquations];
-        }
-
 
         //X init
         for (int i=0; i<numberOfEquations; i++) {
@@ -48,8 +43,46 @@ public class JacobMethod {
             prevX[i] = 0.0;
         }
 
+        checkMatrix();
+
+        checkJacobRequired();
     }
 
+
+    private void checkMatrix() {
+        //sprawdz czy uklad nie jest nieoznaczony albo sprzeczny
+        double[][] A = copyMatrix(numberOfEquations,numberOfEquations);
+        double[][] U = copyMatrix(numberOfEquations,numberOfEquations+1);
+
+
+    }
+
+    private void checkJacobRequired() {
+        //sprawdzenie dla dominujacej przekatnej
+        for (int i = 0; i < numberOfEquations; i++) {
+            double sum = 0;
+            for (int j = 0; j < numberOfEquations; j++) {
+                sum += Math.abs(M[i][j]);
+            }
+            if(M[i][i] < sum - M[i][i]) {
+                throw new JacobConditionException("Brak spelnienia warunku koniecznego.");
+            }
+        }
+
+        //sprawdzenie czy dowolna z norm macierzy H jest mniejsza od jednosci
+        for (int i = 0; i < numberOfEquations; i++) {
+            double sum = 0;
+            for (int j = 0; j < numberOfEquations; j++) {
+                if(i != j) {
+                    sum += Math.abs(M[i][j]/M[i][i]);
+                }
+            }
+            if(sum > 1) {
+                throw new JacobConditionException("Brak spelnienia warunku wystarczajacego.");
+            }
+        }
+
+    }
 
     public double[] iterationSolver(int iterations) {
         return null;

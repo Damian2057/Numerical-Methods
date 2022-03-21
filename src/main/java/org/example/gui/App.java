@@ -2,6 +2,7 @@ package org.example.gui;
 
 import java.util.Scanner;
 import org.example.exception.IndefiniteLayoutException;
+import org.example.exception.JacobConditionException;
 import org.example.exception.NoSolutionException;
 import org.example.model.*;
 
@@ -11,16 +12,9 @@ public class App {
 
     public static void main(String[] args) {
 
-        Scanner scanner= new Scanner(System.in);
-        System.out.println("Program rozwiazujacy uklad rownan metoda iteracji prostej Jacobiego\n");
-        double stop;
-        System.out.println("Podaj warunek stopu (liczba >=1 to liczba iteracji, <1 to dokladnosc): ");
-        stop = Double.parseDouble(scanner.nextLine());
-
         FileReader reader = new FileReader();
         double[][] matrix = null;
         int numberOfEquations = 0;
-
         try {
             matrix = reader.getSystemOfEquations("@../../equations/equation.txt");
             numberOfEquations = reader.getNumberOfEquations();
@@ -28,9 +22,24 @@ public class App {
            e.printStackTrace();
         }
 
-        //JacobMethod.showMatrix(matrix,numberOfEquations);
+        JacobMethod jacobMethod = null;
+        try {
+            jacobMethod = new JacobMethod(numberOfEquations,matrix);
+        } catch (JacobConditionException e) {
+            System.out.println(e.getMessage());
+            return;
+        } catch (NoSolutionException e) {
+            System.out.println(e.getMessage());
+        } catch (IndefiniteLayoutException e) {
+            System.out.println(e.getMessage());
+        }
 
-        JacobMethod jacobMethod = new JacobMethod(numberOfEquations,matrix);
+        Scanner scanner= new Scanner(System.in);
+        System.out.println("Program rozwiazujacy uklad rownan metoda iteracji prostej Jacobiego\n");
+        double stop;
+        System.out.println("Podaj warunek stopu (liczba >=1 to liczba iteracji, <1 to dokladnosc): ");
+        stop = Double.parseDouble(scanner.nextLine());
+
         double[] result = new double[numberOfEquations];
 
         try {
