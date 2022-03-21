@@ -28,7 +28,7 @@ public class App {
            e.printStackTrace();
         }
 
-        //showMatrix(matrix,numberOfEquations);
+        //JacobMethod.showMatrix(matrix,numberOfEquations);
 
         JacobMethod jacobMethod = new JacobMethod(numberOfEquations,matrix);
         double[] result = new double[numberOfEquations];
