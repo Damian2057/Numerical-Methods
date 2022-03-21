@@ -43,19 +43,9 @@ public class JacobMethod {
             prevX[i] = 0.0;
         }
 
-        checkMatrix();
-
         checkJacobRequired();
     }
 
-
-    private void checkMatrix() {
-        //sprawdz czy uklad nie jest nieoznaczony albo sprzeczny
-        double[][] A = copyMatrix(numberOfEquations,numberOfEquations);
-        double[][] U = copyMatrix(numberOfEquations,numberOfEquations+1);
-
-
-    }
 
     private void checkJacobRequired() {
         //sprawdzenie dla dominujacej przekatnej

@@ -1,20 +1,17 @@
 package org.example.gui;
 
 import java.util.Scanner;
-import org.example.exception.IndefiniteLayoutException;
 import org.example.exception.JacobConditionException;
-import org.example.exception.NoSolutionException;
 import org.example.model.*;
 
 public class App {
-
-
 
     public static void main(String[] args) {
 
         FileReader reader = new FileReader();
         double[][] matrix = null;
         int numberOfEquations = 0;
+
         try {
             matrix = reader.getSystemOfEquations("@../../equations/equation.txt");
             numberOfEquations = reader.getNumberOfEquations();
@@ -28,10 +25,6 @@ public class App {
         } catch (JacobConditionException e) {
             System.out.println(e.getMessage());
             return;
-        } catch (NoSolutionException e) {
-            System.out.println(e.getMessage());
-        } catch (IndefiniteLayoutException e) {
-            System.out.println(e.getMessage());
         }
 
         Scanner scanner= new Scanner(System.in);
@@ -49,22 +42,16 @@ public class App {
             } else {
                 result = jacobMethod.accuracySolver(stop);
             }
-        } catch (NoSolutionException | IndefiniteLayoutException e) {
-            System.out.println(e.getMessage());
-            return;
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error occurred");
             return;
         }
 
-
         System.out.println("The solution to the equation is");
         for (int i = 0; i < numberOfEquations; i++) {
              System.out.println("x" + (i+1) + " = " +result[i]);
         }
-
-
     }
 }
 
