@@ -6,7 +6,6 @@ public class JacobMethod {
 
     private final int numberOfEquations;
     private double[][] matrix; //nasza macierz wraz z wynikami
-    private double[][] M; //uklad rownan bez wynikow
 
     private double[] currentX; //wynik 1
     private double[] prevX; //wynik 2
@@ -26,16 +25,8 @@ public class JacobMethod {
         this.numberOfEquations = numberOfEquations;
         this.matrix = matrix;
 
-        M = new double[numberOfEquations][numberOfEquations];
         currentX = new double[numberOfEquations];
         prevX = new double[numberOfEquations];
-
-        //wczytanie rownan do M
-        for (int i = 0; i < numberOfEquations; i++) {
-            for (int j = 0; j < numberOfEquations; j++) {
-                M[i][j] = matrix[i][j];
-            }
-        }
 
         //X init
         for (int i=0; i<numberOfEquations; i++) {
@@ -52,9 +43,9 @@ public class JacobMethod {
         for (int i = 0; i < numberOfEquations; i++) {
             double sum = 0;
             for (int j = 0; j < numberOfEquations; j++) {
-                sum += Math.abs(M[i][j]);
+                sum += Math.abs(matrix[i][j]);
             }
-            if(M[i][i] < sum - M[i][i]) {
+            if(matrix[i][i] < sum - matrix[i][i]) {
                 throw new JacobConditionException("Brak spelnienia warunku koniecznego.");
             }
         }
@@ -64,7 +55,7 @@ public class JacobMethod {
             double sum = 0;
             for (int j = 0; j < numberOfEquations; j++) {
                 if(i != j) {
-                    sum += Math.abs(M[i][j]/M[i][i]);
+                    sum += Math.abs(matrix[i][j]/matrix[i][i]);
                 }
             }
             if(sum > 1) {
@@ -75,11 +66,50 @@ public class JacobMethod {
     }
 
     public double[] iterationSolver(int iterations) {
-        return null;
+        for(int i = 0; i < iterations; i++) {
+            for (int j = 0; j < numberOfEquations; j++) {
+                double sum = matrix[j][numberOfEquations]; // vector b
+
+                for (int z = 0; z < numberOfEquations; z++) {
+                    if (j != z)
+                        sum -= matrix[j][z] * prevX[z]; //b-a(ij)*x(k-1)-...
+                }
+
+                currentX[j] = 1/matrix[j][j] * sum; // b/a(ii)-a(ij)/a(ii)-...
+            }
+
+            prevX = currentX.clone(); //copy current X(k) to prev X(k-1)
+        }
+        return currentX;
     }
 
     public double[] accuracySolver(double epsilon) {
-        return null;
+        while (true){
+            for (int j = 0; j < numberOfEquations; j++) {
+                double sum = matrix[j][numberOfEquations]; // vector b
+
+                for (int z = 0; z < numberOfEquations; z++) {
+                    if (j != z)
+                        sum -= matrix[j][z] * prevX[z]; //b-a(ij)*x(k-1)-...
+                }
+
+                currentX[j] = 1/matrix[j][j] * sum; // b/a(ii)-a(ij)/a(ii)-...
+            }
+            int iter = 0;
+            for (int i = 0; i < numberOfEquations; i++) {
+                if(Math.abs(currentX[i] - prevX[i]) < epsilon) {
+                    iter++;
+                }
+            }
+            if(iter == numberOfEquations) {
+                break;
+            }
+            iter = 0;
+
+
+            prevX = currentX.clone(); //copy current X(k) to prev X(k-1)
+        }
+        return currentX;
     }
 
     public static void showMatrix(double[][] matrix, int numberOfEquations) {
