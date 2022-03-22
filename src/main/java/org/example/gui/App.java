@@ -43,7 +43,6 @@ public class App {
                 result = jacobMethod.accuracySolver(stop);
             }
         } catch (Exception e) {
-            e.printStackTrace();
             System.out.println("Error occurred");
             return;
         }
