@@ -16,7 +16,7 @@ public class App {
             matrix = reader.getSystemOfEquations("@../../equations/equation.txt");
             numberOfEquations = reader.getNumberOfEquations();
         } catch (Exception e) {
-           e.printStackTrace();
+            System.out.println(e.getMessage());
         }
 
         JacobMethod jacobMethod = null;
