@@ -11,16 +11,6 @@ public class JacobMethod {
     private double[] prevX; //wynik 2
 
 
-    double[][] copyMatrix(int x, int y) {
-        double[][] temp = new double[x][y];
-        for (int i = 0; i < x; i++) {
-            for (int j = 0; j < y; j++) {
-                temp[i][j] = matrix[i][j];
-            }
-        }
-        return temp;
-    }
-
     public JacobMethod(int numberOfEquations, double[][] matrix) {
         this.numberOfEquations = numberOfEquations;
         this.matrix = matrix;
@@ -34,36 +24,13 @@ public class JacobMethod {
             prevX[i] = 0.0;
         }
 
-        checkJacobRequired();
-    }
 
-
-    private void checkJacobRequired() {
-        //sprawdzenie dla dominujacej przekatnej
-        for (int i = 0; i < numberOfEquations; i++) {
-            double sum = 0;
-            for (int j = 0; j < numberOfEquations; j++) {
-                sum += Math.abs(matrix[i][j]);
-            }
-            if(matrix[i][i] < sum - matrix[i][i]) {
-                throw new JacobConditionException("Brak spelnienia warunku koniecznego.");
-            }
-        }
-
-        //sprawdzenie czy dowolna z norm macierzy H jest mniejsza od jednosci
-        for (int i = 0; i < numberOfEquations; i++) {
-            double sum = 0;
-            for (int j = 0; j < numberOfEquations; j++) {
-                if(i != j) {
-                    sum += Math.abs(matrix[i][j]/matrix[i][i]);
-                }
-            }
-            if(sum > 1) {
-                throw new JacobConditionException("Brak spelnienia warunku wystarczajacego.");
-            }
-        }
+        matrix = MatrixSort.repairMatrix(matrix,numberOfEquations);
+        showMatrix(MatrixSort.repairMatrix(matrix,numberOfEquations), numberOfEquations);
+        checkJacobRequired(matrix,numberOfEquations);
 
     }
+
 
     public double[] iterationSolver(int iterations) {
         for(int i = 0; i < iterations; i++) {
@@ -122,5 +89,32 @@ public class JacobMethod {
             s.append("\n");
         }
         System.out.println(s.toString());
+    }
+
+
+    public static void checkJacobRequired(double matrix[][], int numberOfEquations) {
+        //sprawdzenie dla dominujacej przekatnej
+        for (int i = 0; i < numberOfEquations; i++) {
+            double sum = 0;
+            for (int j = 0; j < numberOfEquations; j++) {
+                sum += Math.abs(matrix[i][j]);
+            }
+            if(matrix[i][i] < sum - matrix[i][i]) {
+                throw new JacobConditionException("Brak spelnienia warunku koniecznego.");
+            }
+        }
+
+        //sprawdzenie czy dowolna z norm macierzy H jest mniejsza od jednosci
+        for (int i = 0; i < numberOfEquations; i++) {
+            double sum = 0;
+            for (int j = 0; j < numberOfEquations; j++) {
+                if(i != j) {
+                    sum += Math.abs(matrix[i][j]/matrix[i][i]);
+                }
+            }
+            if(sum > 1) {
+                throw new JacobConditionException("Brak spelnienia warunku wystarczajacego.");
+            }
+        }
     }
 }
