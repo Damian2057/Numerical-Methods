@@ -2,6 +2,8 @@ package org.example.model;
 
 import org.example.exception.JacobConditionException;
 
+import java.util.Arrays;
+
 public class JacobMethod {
 
     private final int numberOfEquations;
@@ -11,9 +13,61 @@ public class JacobMethod {
     private double[] prevX; //wynik 2
 
 
+
+    public boolean stworzDominante(int r, boolean[] V, int[] R)
+    {
+        int n = matrix.length;
+        if (r == matrix.length) {
+            double[][] T = new double[n][n+1];
+            for (int i = 0; i < R.length; i++) {
+                for (int j = 0; j < n + 1; j++)
+                    T[i][j] = matrix[R[i]][j];
+            }
+
+            matrix = T;
+
+            return true;
+        }
+
+        for (int i = 0; i < n; i++) {
+            if (V[i]) continue;
+
+            double sum = 0;
+
+            for (int j = 0; j < n; j++)
+                sum += Math.abs(matrix[i][j]);
+
+            if (2 * Math.abs(matrix[i][r]) > sum) { // diagonally dominant?
+                V[i] = true;
+                R[r] = i;
+
+                if (stworzDominante(r + 1, V, R))
+                    return true;
+
+                V[i] = false;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean sprawdzDominante()
+    {
+        boolean[] visited = new boolean[matrix.length];
+        int[] rows = new int[matrix.length];
+
+        Arrays.fill(visited, false);
+
+        return stworzDominante(0, visited, rows);
+    }
+    
+    
+
     public JacobMethod(int numberOfEquations, double[][] matrix) {
         this.numberOfEquations = numberOfEquations;
         this.matrix = matrix;
+
+
 
         currentX = new double[numberOfEquations];
         prevX = new double[numberOfEquations];
@@ -24,9 +78,11 @@ public class JacobMethod {
             prevX[i] = 0.0;
         }
 
+        if (!sprawdzDominante()) {
+            System.out.println("Nie udalo sie spelnic warunku koniecznego");
+        }
 
-        matrix = MatrixSort.repairMatrix(matrix,numberOfEquations);
-        showMatrix(MatrixSort.repairMatrix(matrix,numberOfEquations), numberOfEquations);
+        showMatrix(matrix, numberOfEquations);
         checkJacobRequired(matrix,numberOfEquations);
 
     }
@@ -92,7 +148,7 @@ public class JacobMethod {
     }
 
 
-    public static void checkJacobRequired(double matrix[][], int numberOfEquations) {
+    public static void checkJacobRequired(double[][] matrix, int numberOfEquations) {
         //sprawdzenie dla dominujacej przekatnej
         for (int i = 0; i < numberOfEquations; i++) {
             double sum = 0;
@@ -100,7 +156,8 @@ public class JacobMethod {
                 sum += Math.abs(matrix[i][j]);
             }
             if(matrix[i][i] < sum - matrix[i][i]) {
-                throw new JacobConditionException("Brak spelnienia warunku koniecznego.");
+                System.out.println("Brak spelnienia warunku koniecznego.");
+                //throw new JacobConditionException("Brak spelnienia warunku koniecznego.");
             }
         }
 
@@ -113,7 +170,8 @@ public class JacobMethod {
                 }
             }
             if(sum > 1) {
-                throw new JacobConditionException("Brak spelnienia warunku wystarczajacego.");
+                System.out.println("Brak spelnienia warunku wystarczajacego.");
+                //throw new JacobConditionException("Brak spelnienia warunku wystarczajacego.");
             }
         }
     }
