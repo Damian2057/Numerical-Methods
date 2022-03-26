@@ -1,73 +1,17 @@
 package org.example.model;
 
-import org.example.exception.JacobConditionException;
-
 import java.util.Arrays;
 
 public class JacobMethod {
 
     private final int numberOfEquations;
     private double[][] matrix; //nasza macierz wraz z wynikami
-
     private double[] currentX; //wynik 1
     private double[] prevX; //wynik 2
-
-
-
-    public boolean stworzDominante(int r, boolean[] V, int[] R)
-    {
-        int n = matrix.length;
-        if (r == matrix.length) {
-            double[][] T = new double[n][n+1];
-            for (int i = 0; i < R.length; i++) {
-                for (int j = 0; j < n + 1; j++)
-                    T[i][j] = matrix[R[i]][j];
-            }
-
-            matrix = T;
-
-            return true;
-        }
-
-        for (int i = 0; i < n; i++) {
-            if (V[i]) continue;
-
-            double sum = 0;
-
-            for (int j = 0; j < n; j++)
-                sum += Math.abs(matrix[i][j]);
-
-            if (2 * Math.abs(matrix[i][r]) > sum) { // diagonally dominant?
-                V[i] = true;
-                R[r] = i;
-
-                if (stworzDominante(r + 1, V, R))
-                    return true;
-
-                V[i] = false;
-            }
-        }
-
-        return false;
-    }
-
-    public boolean sprawdzDominante()
-    {
-        boolean[] visited = new boolean[matrix.length];
-        int[] rows = new int[matrix.length];
-
-        Arrays.fill(visited, false);
-
-        return stworzDominante(0, visited, rows);
-    }
-    
-    
 
     public JacobMethod(int numberOfEquations, double[][] matrix) {
         this.numberOfEquations = numberOfEquations;
         this.matrix = matrix;
-
-
 
         currentX = new double[numberOfEquations];
         prevX = new double[numberOfEquations];
@@ -77,16 +21,67 @@ public class JacobMethod {
             currentX[i] = 0.0;
             prevX[i] = 0.0;
         }
+        tryToFixRows();
+        tryToFixColumns();
 
-        if (!sprawdzDominante()) {
-            System.out.println("Nie udalo sie spelnic warunku koniecznego");
-        }
-
-        showMatrix(matrix, numberOfEquations);
         checkJacobRequired(matrix,numberOfEquations);
 
     }
 
+
+    public void  tryToFixRows() {
+        boolean[] visited = new boolean[matrix.length];
+
+        Arrays.fill(visited, false);
+
+        for (int i = 0; i < numberOfEquations; i++) {
+            double max = 0;
+            int index  = -1;
+            for (int j = 0; j < numberOfEquations; j++) {
+                if(Math.abs(max) < Math.abs(matrix[j][i])) {
+                    max = matrix[j][i];
+                    index = j;
+                }
+            }
+            if(index != -1 && !visited[index]) {
+                for (int j = 0; j < numberOfEquations+1; j++) {
+                    double temp = matrix[index][j];
+                    matrix[index][j] = matrix[i][j];
+                    matrix[i][j] = temp;
+                }
+                visited[index] = true;
+            }
+            index  = -1;
+        }
+        showMatrix(matrix,numberOfEquations);
+    }
+
+    public void  tryToFixColumns() {
+        boolean[] visited = new boolean[matrix.length];
+
+        Arrays.fill(visited, false);
+
+        for (int i = 0; i < numberOfEquations; i++) {
+            double max = 0;
+            int index  = -1;
+            for (int j = 0; j < numberOfEquations; j++) {
+                if(Math.abs(max) < Math.abs(matrix[i][j])) {
+                    max = matrix[i][j];
+                    index = i;
+                }
+            }
+            if(index != -1 && !visited[index]) {
+                for (int j = 0; j < numberOfEquations; j++) {
+                    double temp = matrix[j][index];
+                    matrix[j][index] = matrix[j][i];
+                    matrix[j][i] = temp;
+                }
+                visited[index] = true;
+            }
+            index  = -1;
+        }
+        showMatrix(matrix,numberOfEquations);
+    }
 
     public double[] iterationSolver(int iterations) {
         for(int i = 0; i < iterations; i++) {
@@ -155,23 +150,9 @@ public class JacobMethod {
             for (int j = 0; j < numberOfEquations; j++) {
                 sum += Math.abs(matrix[i][j]);
             }
-            if(matrix[i][i] < sum - matrix[i][i]) {
-                System.out.println("Brak spelnienia warunku koniecznego.");
-                //throw new JacobConditionException("Brak spelnienia warunku koniecznego.");
-            }
-        }
-
-        //sprawdzenie czy dowolna z norm macierzy H jest mniejsza od jednosci
-        for (int i = 0; i < numberOfEquations; i++) {
-            double sum = 0;
-            for (int j = 0; j < numberOfEquations; j++) {
-                if(i != j) {
-                    sum += Math.abs(matrix[i][j]/matrix[i][i]);
-                }
-            }
-            if(sum > 1) {
-                System.out.println("Brak spelnienia warunku wystarczajacego.");
-                //throw new JacobConditionException("Brak spelnienia warunku wystarczajacego.");
+            if(Math.abs(matrix[i][i]) < sum - Math.abs(matrix[i][i])) { //konieczny
+                System.out.println("Brak gwarancji poprawnego wyniku");
+                return;
             }
         }
     }
