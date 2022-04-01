@@ -57,9 +57,10 @@ public class App {
 
         //To debug
 
-//        XYSeriesDemo xySeriesDemo = new XYSeriesDemo("title",originXFunction,originYFunction);
-//        xySeriesDemo.pack();
-//        xySeriesDemo.setVisible(true);
+        XYSeriesDemo xySeriesDemo = new XYSeriesDemo(numberOfNodes
+                ,originXFunction,originYFunction, interpolatedXFunction,interpolateYFunction);
+        xySeriesDemo.pack();
+        xySeriesDemo.setVisible(true);
 
     }
 }

@@ -10,45 +10,26 @@ import org.jfree.chart.ui.ApplicationFrame;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class XYSeriesDemo extends ApplicationFrame {
 
-    public XYSeriesDemo(String title,ArrayList<Double> x, ArrayList<Double> y, double zero) {
+    public XYSeriesDemo(int number,ArrayList<Double> originX, ArrayList<Double> originY,
+                        ArrayList<Double> interpolatedXFunction, ArrayList<Double> interpolateYFunction) {
 
-        super("wykres"+ title);
+        super("Ilosc wezlow"+ number);
 
         final XYSeries series = new XYSeries("f(x)");
 
         int i=0;
-        for(i=0; i<x.size(); i++) {
-            series.add(x.get(i),y.get(i));
+        for(i=0; i<originX.size(); i++) {
+            series.add(originX.get(i),originY.get(i));
         }
-
-        final XYSeries osX = new XYSeries("Oś X");
-        osX.add(x.get(0).doubleValue(), 0);
-        osX.add(x.get(x.size()-1).doubleValue(),0);
-
-        ArrayList<Double> copy = (ArrayList<Double>) new ArrayList<>(y).clone();
-
-        Collections.sort(copy);
-        final XYSeries osY = new XYSeries("Oś Y");
-        osY.add((x.get(i-1)+x.get(0))/2,copy.get(0));
-        osY.add((x.get(i-1)+x.get(0))/2,copy.get(copy.size()-1));
-
-
-        final XYSeries miejsceZerowe = new XYSeries("Miejsce zerowe");
-        miejsceZerowe.add(zero,0);
-
         final XYSeriesCollection data = new XYSeriesCollection(series);
-        data.addSeries(osX);
-        data.addSeries(osY);
-        data.addSeries(miejsceZerowe);
 
 
 
         final JFreeChart chart = ChartFactory.createXYLineChart(
-                "Wykres funkcji z algorytmem "+title,
+                "Ilosc wezlow "+ number,
                 "oś X",
                 "oś Y",
                 data,
