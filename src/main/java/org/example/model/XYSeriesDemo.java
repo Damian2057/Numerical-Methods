@@ -14,17 +14,25 @@ import java.util.ArrayList;
 public class XYSeriesDemo extends ApplicationFrame {
 
     public XYSeriesDemo(int number,ArrayList<Double> originX, ArrayList<Double> originY,
-                        ArrayList<Double> interpolatedXFunction, ArrayList<Double> interpolateYFunction) {
+                        ArrayList<Double> interpolatedXFunction, ArrayList<Double> interpolatedYFunction) {
 
         super("Ilosc wezlow"+ number);
 
-        final XYSeries series = new XYSeries("f(x)");
+        final XYSeries originSeries = new XYSeries("f(x)");
 
-        int i=0;
-        for(i=0; i<originX.size(); i++) {
-            series.add(originX.get(i),originY.get(i));
+        for(int i=0; i<originX.size(); i++) {
+            originSeries.add(originX.get(i),originY.get(i));
         }
-        final XYSeriesCollection data = new XYSeriesCollection(series);
+
+        final XYSeries interpolatedSeries = new XYSeries("f'(x)");
+        for (int i = 0; i < interpolatedXFunction.size(); i++) {
+            interpolatedSeries.add(interpolatedXFunction.get(i),interpolatedYFunction.get(i));
+            //System.out.println(interpolatedXFunction.get(i)+" "+interpolatedYFunction.get(i));
+        }
+
+
+        final XYSeriesCollection data = new XYSeriesCollection(originSeries);
+        data.addSeries(interpolatedSeries);
 
 
 

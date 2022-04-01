@@ -42,7 +42,7 @@ public class App {
         ArrayList<Double> interpolatedXFunction = new ArrayList<>();
         ArrayList<Double> interpolateYFunction = new ArrayList<>();
 
-        double accuracyLeap = 0.001;
+        double accuracyLeap = 0.01;
         double temp = minRange; //started X on the chart
 
         while (temp <= maxRange) {

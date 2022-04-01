@@ -22,7 +22,7 @@ public class ChebyshevInterpolation {
     public void initializeNodes(double minRange, double maxRange
             , int numberOfNodes) {
         for (int i = 1; i <= numberOfNodes; i++) {
-            double x = 0.5*(minRange+maxRange) + 0.5*(maxRange-maxRange)*Math.cos(Math.PI*(2*i-1)/(2*numberOfNodes));
+            double x = 0.5 * (minRange + maxRange) + 0.5 * (maxRange - minRange) * Math.cos(Math.PI * (2 * i - 1) / (2 * numberOfNodes));
             Node node = new Node(x, functionContainer.function(x));
             nodes.add(node);
         }
@@ -37,8 +37,8 @@ public class ChebyshevInterpolation {
                 if(i != j) {
                     finalResult *= ((x - nodes.get(j).getX()) / (nodes.get(i).getX() - nodes.get(j).getX()));
                 }
-                sum += nodes.get(i).getX()*finalResult;
             }
+            sum += nodes.get(i).getY()*finalResult;
         }
         return  sum;
     }
