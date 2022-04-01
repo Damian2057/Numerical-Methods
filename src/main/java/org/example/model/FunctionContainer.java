@@ -1,7 +1,6 @@
 package org.example.model;
 
 import org.example.exception.DataException;
-
 import java.util.Scanner;
 
 public class FunctionContainer {

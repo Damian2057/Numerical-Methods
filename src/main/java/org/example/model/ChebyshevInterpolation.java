@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class ChebyshevInterpolation {
 
-    private FunctionContainer functionContainer;
+    private final FunctionContainer functionContainer;
     private ArrayList<Node> nodes = new ArrayList<>();
 
     public ChebyshevInterpolation(FunctionContainer functionContainer, double minRange
@@ -42,5 +42,4 @@ public class ChebyshevInterpolation {
         }
         return  sum;
     }
-
 }

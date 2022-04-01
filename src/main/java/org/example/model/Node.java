@@ -1,8 +1,8 @@
 package org.example.model;
 
 public class Node {
-    private double x;
-    private double y;
+    private final double x;
+    private final double y;
 
     public Node(double x, double y) {
         this.x = x;
@@ -13,15 +13,7 @@ public class Node {
         return x;
     }
 
-    public void setX(double x) {
-        this.x = x;
-    }
-
     public double getY() {
         return y;
-    }
-
-    public void setY(double y) {
-        this.y = y;
     }
 }

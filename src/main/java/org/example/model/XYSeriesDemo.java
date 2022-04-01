@@ -9,7 +9,6 @@ import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.chart.ui.ApplicationFrame;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -45,9 +44,6 @@ public class XYSeriesDemo extends ApplicationFrame {
         data.addSeries(point);
 
 
-
-
-
         final JFreeChart chart = ChartFactory.createXYLineChart(
                 "Ilosc wezlow "+ number,
                 "oś X",
@@ -76,4 +72,5 @@ public class XYSeriesDemo extends ApplicationFrame {
         chartPanel.setPreferredSize(new java.awt.Dimension(1000, 540));
         setContentPane(chartPanel);
 
-    }}
+    }
+}
