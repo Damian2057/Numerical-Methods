@@ -9,12 +9,15 @@ import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.chart.ui.ApplicationFrame;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+
+import java.awt.*;
 import java.util.ArrayList;
 
 public class XYSeriesDemo extends ApplicationFrame {
 
     public XYSeriesDemo(int number,ArrayList<Double> originX, ArrayList<Double> originY,
-                        ArrayList<Double> interpolatedXFunction, ArrayList<Double> interpolatedYFunction) {
+                        ArrayList<Double> interpolatedXFunction, ArrayList<Double> interpolatedYFunction
+            ,ArrayList<Node> nodes) {
 
         super("Ilosc wezlow"+ number);
 
@@ -25,14 +28,23 @@ public class XYSeriesDemo extends ApplicationFrame {
         }
 
         final XYSeries interpolatedSeries = new XYSeries("f'(x)");
+
+       final XYSeries point = new XYSeries("nodes");
+
+        for (int i = 0; i < nodes.size(); i++) {
+            point.add(nodes.get(i).getX(),nodes.get(i).getY());
+        }
+
         for (int i = 0; i < interpolatedXFunction.size(); i++) {
             interpolatedSeries.add(interpolatedXFunction.get(i),interpolatedYFunction.get(i));
-            //System.out.println(interpolatedXFunction.get(i)+" "+interpolatedYFunction.get(i));
         }
 
 
         final XYSeriesCollection data = new XYSeriesCollection(originSeries);
         data.addSeries(interpolatedSeries);
+        data.addSeries(point);
+
+
 
 
 
@@ -53,8 +65,11 @@ public class XYSeriesDemo extends ApplicationFrame {
         renderer.setSeriesShapesVisible(0, false);
         renderer.setSeriesLinesVisible(1, true);
         renderer.setSeriesShapesVisible(1, false);
-        renderer.setSeriesLinesVisible(2, true);
-        renderer.setSeriesShapesVisible(2, false);
+
+        renderer.setSeriesShape(2,new Rectangle(-2,-2,4,4));
+        renderer.setSeriesShapesVisible(2,true);
+        renderer.setSeriesLinesVisible(2, false);
+        renderer.setSeriesShapesFilled(2,true);
         plot.setRenderer(renderer);
 
         final ChartPanel chartPanel = new ChartPanel(chart);

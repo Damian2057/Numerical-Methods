@@ -58,7 +58,8 @@ public class App {
         //To debug
 
         XYSeriesDemo xySeriesDemo = new XYSeriesDemo(numberOfNodes
-                ,originXFunction,originYFunction, interpolatedXFunction,interpolateYFunction);
+                ,originXFunction,originYFunction, interpolatedXFunction
+                ,interpolateYFunction,chebyshevInterpolation.getNodes());
         xySeriesDemo.pack();
         xySeriesDemo.setVisible(true);
 
