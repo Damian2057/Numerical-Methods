@@ -1,5 +1,6 @@
 package org.example.gui;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import org.example.exception.DataException;
@@ -25,6 +26,7 @@ public class App {
                 System.out.println(e.getMessage());
             }
         }
+
         System.out.println("Enter the lower range:");
         minRange = Double.parseDouble(scanner.nextLine());
 
@@ -34,7 +36,12 @@ public class App {
         System.out.println("Enter the number of interpolation nodes :");
         numberOfNodes = Integer.parseInt(scanner.nextLine());
 
+        ArrayList<Node> nodes = new ArrayList<>();
+        ChebyshevInterpolation chebyshevInterpolation
+                = new ChebyshevInterpolation(functionContainer);
+        chebyshevInterpolation.initializeNodes(minRange,maxRange,numberOfNodes,nodes);
 
+        System.out.println(nodes.size());
     }
 }
 
