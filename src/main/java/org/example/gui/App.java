@@ -29,15 +29,13 @@ public class App {
         minRange = Double.parseDouble(scanner.nextLine());
 
         System.out.println("Enter the upper range:");
-        minRange = Double.parseDouble(scanner.nextLine());
+        maxRange = Double.parseDouble(scanner.nextLine());
 
         System.out.println("Enter the number of interpolation nodes :");
         numberOfNodes = Integer.parseInt(scanner.nextLine());
 
-        ArrayList<Node> nodes = new ArrayList<>();
         ChebyshevInterpolation chebyshevInterpolation
-                = new ChebyshevInterpolation(functionContainer);
-        chebyshevInterpolation.initializeNodes(minRange,maxRange,numberOfNodes,nodes);
+                = new ChebyshevInterpolation(functionContainer,minRange,maxRange,numberOfNodes);
 
         ArrayList<Double> originXFunction = new ArrayList<>();
         ArrayList<Double> originYFunction = new ArrayList<>();
@@ -52,10 +50,12 @@ public class App {
             originYFunction.add(functionContainer.function(temp));
 
             interpolatedXFunction.add(temp);
-            //interpolateYFunction.add();
+            interpolateYFunction.add(chebyshevInterpolation.getInterpolatedValue(temp));
 
             temp += accuracyLeap;
         }
+
+        //To debug
 
 //        XYSeriesDemo xySeriesDemo = new XYSeriesDemo("title",originXFunction,originYFunction);
 //        xySeriesDemo.pack();
