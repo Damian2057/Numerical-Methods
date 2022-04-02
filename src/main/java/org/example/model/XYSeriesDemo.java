@@ -18,7 +18,7 @@ public class XYSeriesDemo extends ApplicationFrame {
                         ArrayList<Double> interpolatedXFunction, ArrayList<Double> interpolatedYFunction
             ,ArrayList<Node> nodes) {
 
-        super("Ilosc wezlow"+ number);
+        super("Ilość węzłów: "+ number);
 
         final XYSeries originSeries = new XYSeries("f(x)");
 
@@ -45,7 +45,7 @@ public class XYSeriesDemo extends ApplicationFrame {
 
 
         final JFreeChart chart = ChartFactory.createXYLineChart(
-                "Ilosc wezlow "+ number,
+                "Ilość węzłów: "+ number,
                 "oś X",
                 "oś Y",
                 data,
