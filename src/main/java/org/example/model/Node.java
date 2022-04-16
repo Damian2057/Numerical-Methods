@@ -1,19 +1,19 @@
 package org.example.model;
 
 public class Node {
-    private final double x;
-    private final double y;
+    private final double node;
+    private final double weight;
 
-    public Node(double x, double y) {
-        this.x = x;
-        this.y = y;
+    public Node(double n, double weight) {
+        this.node = n;
+        this.weight = weight;
     }
 
-    public double getX() {
-        return x;
+    public double getNode() {
+        return node;
     }
 
-    public double getY() {
-        return y;
+    public double getWeight() {
+        return weight;
     }
 }
