@@ -36,10 +36,10 @@ public class App {
             //calculation
             switch (choice) {
                 case 1 -> {
-
+                    Simpson simpson = new Simpson();
                 }
                 case 2 -> {
-
+                    Hermite hermite = new Hermite();
                 }
                 default -> {
                     System.out.println("incorrect selection");
