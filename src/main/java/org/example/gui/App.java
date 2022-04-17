@@ -39,7 +39,11 @@ public class App {
                     Simpson simpson = new Simpson();
                 }
                 case 2 -> {
-                    Hermite hermite = new Hermite();
+                    Hermite hermite = new Hermite(functionContainer);
+                    double[] result = hermite.calculateForEveryNode();
+                    for (int i = 0; i < result.length; i++) {
+                        System.out.println("Node: "+ (i+2) + ",Result:" + result[i]);
+                    }
                 }
                 default -> {
                     System.out.println("incorrect selection");
