@@ -37,7 +37,10 @@ public class App {
             //calculation
             switch (choice) {
                 case 1 -> {
-                    NewtonCotes newtonCotes = new NewtonCotes(functionContainer);
+                    System.out.println("Enter the accuracy of the result:");
+                    double epsilon = Double.parseDouble(scanner.nextLine());
+                    NewtonCotes newtonCotes = new NewtonCotes(functionContainer, epsilon);
+                    newtonCotes.calculate();
 
                 }
                 case 2 -> {
@@ -54,6 +57,7 @@ public class App {
             }
 
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println(e.getMessage());
         }
     }
