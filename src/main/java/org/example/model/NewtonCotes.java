@@ -36,23 +36,30 @@ public class NewtonCotes {
             case 1 -> {
                 lowerLimit = 0;
                 upperLimit = 10;
-                int nodes = 6;
-                double result = Newton_Cotes(lowerLimit,upperLimit,nodes);
+                int interval = 6; //number of compartments
+                double result = Newton_Cotes(lowerLimit,upperLimit,interval);
                 lowerLimit = upperLimit;
                 double factor = 0.1;
                 double temp = 0;
-                do
-                {
+                do {
                     upperLimit = lowerLimit + factor;
-                    temp = Newton_Cotes(lowerLimit,upperLimit,nodes);
+                    temp = Newton_Cotes(lowerLimit,upperLimit,interval);
                     result += temp;
                     lowerLimit += factor;
-                }while (epsilon < Math.abs(temp));
+                } while (epsilon < Math.abs(temp));
                 System.out.println("Result: "+ result);
-                System.out.println("For nodes: " + nodes);
+                System.out.println("For nodes: " + interval);
             }
             case 2 -> {
-
+                int interval = 1;
+                double currentResult = 0;
+                double previousResult;
+                do {
+                    interval++;
+                    previousResult = currentResult;
+                    currentResult = Newton_Cotes(lowerLimit, upperLimit, interval);
+                } while (epsilon > Math.abs(currentResult - previousResult));
+                System.out.println("Result:" + currentResult);
             }
             default -> {
                 System.out.println("Invalid option");
