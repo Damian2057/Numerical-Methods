@@ -9,7 +9,7 @@ public class NewtonCotes {
     private double upperLimit;
     private int choice;
 
-    private void info() {
+    private void getInfo() {
         StringBuilder builder = new StringBuilder();
         Scanner scanner= new Scanner(System.in);
         builder.append("Choose a range:\n")
@@ -31,24 +31,24 @@ public class NewtonCotes {
     }
 
     public void calculate() {
-        info();
+        getInfo();
         switch (choice) {
             case 1 -> {
                 lowerLimit = 0;
                 upperLimit = 10;
                 int interval = 6; //number of compartments
-                double result = Newton_Cotes(lowerLimit,upperLimit,interval);
+                double result = newtonCotesQuadrature(lowerLimit,upperLimit,interval);
                 lowerLimit = upperLimit;
                 double factor = 0.1;
                 double temp = 0;
                 do {
                     upperLimit = lowerLimit + factor;
-                    temp = Newton_Cotes(lowerLimit,upperLimit,interval);
+                    temp = newtonCotesQuadrature(lowerLimit,upperLimit,interval);
                     result += temp;
                     lowerLimit += factor;
                 } while (epsilon < Math.abs(temp));
                 System.out.println("Result: "+ result);
-                System.out.println("For nodes: " + interval);
+                System.out.println("For interval: " + interval);
             }
             case 2 -> {
                 int interval = 1;
@@ -57,9 +57,10 @@ public class NewtonCotes {
                 do {
                     interval++;
                     previousResult = currentResult;
-                    currentResult = Newton_Cotes(lowerLimit, upperLimit, interval);
+                    currentResult = newtonCotesQuadrature(lowerLimit, upperLimit, interval);
                 } while (epsilon > Math.abs(currentResult - previousResult));
-                System.out.println("Result:" + currentResult);
+                System.out.println("Result: " + currentResult);
+                System.out.println("For interval: " + interval);
             }
             default -> {
                 System.out.println("Invalid option");
@@ -68,14 +69,14 @@ public class NewtonCotes {
         }
     }
 
-    private double Newton_Cotes(double lowerLimit, double upperLimit, int count) {
+    private double newtonCotesQuadrature(double lowerLimit, double upperLimit, int countOfIntervals) {
         if(choice == 1) {
-            return (upperLimit - lowerLimit) / (6 * count) * (expFunction(lowerLimit)
-                    + expFunction(upperLimit) + (2 * firstSum(count)) + (4 * secondSum(count)));
+            return (upperLimit - lowerLimit) / (6 * countOfIntervals) * (expFunction(lowerLimit)
+                    + expFunction(upperLimit) + (2 * firstSummary(countOfIntervals)) + (4 * secondSummary(countOfIntervals)));
         } else {
-            return (lowerLimit - upperLimit) / (6 * count)
-                    * (container.function(upperLimit) + container.function(lowerLimit)
-                    + (2 * firstSum(count)) + (4 * secondSum(count)));
+            return (upperLimit - lowerLimit) / (6 * countOfIntervals)
+                    * (container.function(lowerLimit) + container.function(upperLimit)
+                    + (2 * firstSummary(countOfIntervals)) + (4 * secondSummary(countOfIntervals)));
         }
     }
 
@@ -83,10 +84,10 @@ public class NewtonCotes {
         return container.function(x) * Math.exp(-x);
     }
 
-    private double firstSum(int count){
+    private double firstSummary(int countOfIntervals){
         double finalSum = 0;
-        double middle = Math.abs(lowerLimit - upperLimit) / count;
-        for (int i = 1; i < count; i++) {
+        double middle = Math.abs(lowerLimit - upperLimit) / countOfIntervals;
+        for (int i = 1; i < countOfIntervals; i++) {
             if (choice == 1) {
                 finalSum += expFunction(lowerLimit + (middle * i));
             } else {
@@ -96,11 +97,11 @@ public class NewtonCotes {
         return finalSum;
     }
 
-    private double secondSum(int count){
+    private double secondSummary(int countOfIntervals){
         double finalSum = 0;
-        double middle = Math.abs(lowerLimit - upperLimit) / count;
+        double middle = Math.abs(lowerLimit - upperLimit) / countOfIntervals;
         double middleDif = lowerLimit - (middle / 2);
-        for (int i = 1; i <= count; i++) {
+        for (int i = 1; i <= countOfIntervals; i++) {
             if (choice == 1) {
                 finalSum += expFunction(middleDif + (middle * i));
             } else {
