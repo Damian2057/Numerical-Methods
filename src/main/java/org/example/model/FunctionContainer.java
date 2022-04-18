@@ -5,8 +5,8 @@ import java.util.Scanner;
 
 public class FunctionContainer {
 
-    private int choice;
-    private StringBuilder stringBuilder = new StringBuilder();
+    private final int choice;
+    private final StringBuilder stringBuilder = new StringBuilder();
 
     public FunctionContainer() {
         initFunctions();

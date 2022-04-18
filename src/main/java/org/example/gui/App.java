@@ -1,5 +1,6 @@
 package org.example.gui;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import org.example.model.*;
 
@@ -36,13 +37,14 @@ public class App {
             //calculation
             switch (choice) {
                 case 1 -> {
-                    Simpson simpson = new Simpson();
+                    NewtonCotes newtonCotes = new NewtonCotes(functionContainer);
+
                 }
                 case 2 -> {
-                    Hermite hermite = new Hermite(functionContainer);
-                    double[] result = hermite.calculateForEveryNode();
-                    for (int i = 0; i < result.length; i++) {
-                        System.out.println("Node: "+ (i+2) + ",Result:" + result[i]);
+                    Laguerrea laguerrea = new Laguerrea(functionContainer);
+                    ArrayList<Double> result = laguerrea.calculateForEveryNode();
+                    for (int i = 0; i < result.size(); i++) {
+                        System.out.println("Node: "+ (i+2) + ",Result:" + result.get(i));
                     }
                 }
                 default -> {
