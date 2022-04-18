@@ -5,12 +5,12 @@ import java.util.Scanner;
 public class NewtonCotes {
     private final FunctionContainer container;
     private final double epsilon;
-    private StringBuilder builder = new StringBuilder();
     private double lowerLimit;
     private double upperLimit;
     private int choice;
 
     private void info() {
+        StringBuilder builder = new StringBuilder();
         Scanner scanner= new Scanner(System.in);
         builder.append("Choose a range:\n")
                 .append("[1] -> [0,+inf)\n")
@@ -34,24 +34,22 @@ public class NewtonCotes {
         info();
         switch (choice) {
             case 1 -> {
-                lowerLimit=0;
-                upperLimit=10;
-                int n=6;
-                double suma = Newton_Cotes(lowerLimit,upperLimit,n);
+                lowerLimit = 0;
+                upperLimit = 10;
+                int nodes = 6;
+                double result = Newton_Cotes(lowerLimit,upperLimit,nodes);
                 lowerLimit = upperLimit;
-                double delta = 0.1;
-                double z;
+                double factor = 0.1;
+                double temp = 0;
                 do
                 {
-                    upperLimit = lowerLimit + delta;
-                    z = Newton_Cotes(lowerLimit,upperLimit,n);
-                    suma += z;
-                    lowerLimit += delta;
-                    System.out.println(z);
-                }while (epsilon < Math.abs(z));
-                System.out.println("granica policzona");
-                System.out.println(suma);
-                System.out.println(n);
+                    upperLimit = lowerLimit + factor;
+                    temp = Newton_Cotes(lowerLimit,upperLimit,nodes);
+                    result += temp;
+                    lowerLimit += factor;
+                }while (epsilon < Math.abs(temp));
+                System.out.println("Result: "+ result);
+                System.out.println("For nodes: " + nodes);
             }
             case 2 -> {
 
@@ -65,9 +63,8 @@ public class NewtonCotes {
 
     private double Newton_Cotes(double lowerLimit, double upperLimit, int count) {
         if(choice == 1) {
-            return (lowerLimit - upperLimit) / (6 * count)
-                    * (expFunction(upperLimit) + expFunction(lowerLimit)
-                    +(2 * firstSum(count)) + (4 * secondSum(count)));
+            return (upperLimit - lowerLimit) / (6 * count) * (expFunction(lowerLimit)
+                    + expFunction(upperLimit) + (2 * firstSum(count)) + (4 * secondSum(count)));
         } else {
             return (lowerLimit - upperLimit) / (6 * count)
                     * (container.function(upperLimit) + container.function(lowerLimit)
@@ -76,17 +73,17 @@ public class NewtonCotes {
     }
 
     private double expFunction(double x) {
-        return container.function(x) * Math.exp(x);
+        return container.function(x) * Math.exp(-x);
     }
 
     private double firstSum(int count){
         double finalSum = 0;
-        double middle = Math.abs(upperLimit-lowerLimit)/count;
+        double middle = Math.abs(lowerLimit - upperLimit) / count;
         for (int i = 1; i < count; i++) {
             if (choice == 1) {
-                finalSum += expFunction(upperLimit + (middle * i));
+                finalSum += expFunction(lowerLimit + (middle * i));
             } else {
-                finalSum += container.function(upperLimit + (middle * i));
+                finalSum += container.function(lowerLimit + (middle * i));
             }
         }
         return finalSum;
@@ -94,13 +91,13 @@ public class NewtonCotes {
 
     private double secondSum(int count){
         double finalSum = 0;
-        double middle = Math.abs(upperLimit-lowerLimit) / count;
-        double poczatekT= upperLimit - (middle / 2);
+        double middle = Math.abs(lowerLimit - upperLimit) / count;
+        double middleDif = lowerLimit - (middle / 2);
         for (int i = 1; i <= count; i++) {
             if (choice == 1) {
-                finalSum += expFunction(poczatekT + (middle * i));
+                finalSum += expFunction(middleDif + (middle * i));
             } else {
-                finalSum += container.function(poczatekT + (middle * i));
+                finalSum += container.function(middleDif + (middle * i));
             }
         }
         return finalSum;
