@@ -35,11 +35,11 @@ public class NewtonCotes {
         switch (choice) {
             case 1 -> {
                 lowerLimit = 0;
-                upperLimit = 10;
-                int interval = 6; //number of compartments
+                upperLimit = 15;
+                int interval = 10; //number of compartments
                 double result = newtonCotesQuadrature(lowerLimit,upperLimit,interval);
                 lowerLimit = upperLimit;
-                double factor = 0.1;
+                double factor = 0.01;
                 double temp = 0;
                 do {
                     upperLimit = lowerLimit + factor;

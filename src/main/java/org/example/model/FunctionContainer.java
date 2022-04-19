@@ -15,9 +15,6 @@ public class FunctionContainer {
         System.out.println(stringBuilder.toString());
 
         choice = Integer.parseInt(scanner.nextLine());
-        if(choice < 0 || choice > 6) {
-            throw new DataException("Bad function ID");
-        }
     }
 
     private void initFunctions() {
@@ -27,7 +24,10 @@ public class FunctionContainer {
                 .append("[3]: |2*cos(x)|+2\n")
                 .append("[4]: sin(x)\n")
                 .append("[5]: sin(x)*x+5\n")
-                .append("[6]: x*x*x+x-1n");
+                .append("[6]: x*x*x+x-1\n")
+                .append("[7] 5x-2\n")
+                .append("[8] cos(x)\n")
+                .append("[9] x");
     }
 
     public double function(double x) {
@@ -49,6 +49,15 @@ public class FunctionContainer {
             }
             case 6 -> {
                 return x*x*x+x-1;
+            }
+            case 7 -> {
+                return 5*x-2;
+            }
+            case 8 -> {
+                return Math.cos(x);
+            }
+            case 9 -> {
+                return x;
             }
         }
         throw new DataException("Bad function ID");

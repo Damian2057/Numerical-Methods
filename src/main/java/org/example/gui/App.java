@@ -34,21 +34,18 @@ public class App {
                 }
             }
 
+            System.out.println("Enter the accuracy of the result:");
+            double epsilon = Double.parseDouble(scanner.nextLine());
+
             //calculation
             switch (choice) {
                 case 1 -> {
-                    System.out.println("Enter the accuracy of the result:");
-                    double epsilon = Double.parseDouble(scanner.nextLine());
                     NewtonCotes newtonCotes = new NewtonCotes(functionContainer, epsilon);
                     newtonCotes.calculate();
-
                 }
                 case 2 -> {
-                    Laguerrea laguerrea = new Laguerrea(functionContainer);
-                    ArrayList<Double> result = laguerrea.calculateForEveryNode();
-                    for (int i = 0; i < result.size(); i++) {
-                        System.out.println("Node: "+ (i+2) + ",Result:" + result.get(i));
-                    }
+                    Laguerrea laguerrea = new Laguerrea(functionContainer, epsilon);
+                    laguerrea.calculate();
                 }
                 default -> {
                     System.out.println("incorrect selection");
