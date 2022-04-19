@@ -19,27 +19,26 @@ public class FunctionContainer {
 
     private void initFunctions() {
         stringBuilder.append("Available functions:\n")
-                .append("[1]: |x|\n")
+                .append("[1]: x\n")
                 .append("[2]: x*x+x-1\n")
-                .append("[3]: |2*cos(x)|+2\n")
+                .append("[3]: 2*cos(x)+2\n")
                 .append("[4]: sin(x)\n")
                 .append("[5]: sin(x)*x+5\n")
                 .append("[6]: x*x*x+x-1\n")
                 .append("[7] 5x-2\n")
-                .append("[8] cos(x)\n")
-                .append("[9] x");
+                .append("[8] cos(x)\n");
     }
 
     public double function(double x) {
         switch (choice) {
             case 1 -> {
-                return Math.abs(x);
+                return x;
             }
             case 2 -> {
                 return x*x+x-1;
             }
             case 3 -> {
-                return Math.abs(2*Math.cos(x)) + 2;
+                return (2*Math.cos(x) + 2);
             }
             case 4 -> {
                 return Math.sin(x);
@@ -55,9 +54,6 @@ public class FunctionContainer {
             }
             case 8 -> {
                 return Math.cos(x);
-            }
-            case 9 -> {
-                return x;
             }
         }
         throw new DataException("Bad function ID");

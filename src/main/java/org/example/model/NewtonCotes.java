@@ -65,8 +65,9 @@ public class NewtonCotes {
                     previousResult = currentResult;
                     currentResult = newtonCotesQuadrature(lowerLimit, upperLimit, interval);
                 } while (epsilon < Math.abs(currentResult - previousResult));
-                System.out.println("Result of the calculated area under the integral plot: " + sum);
+                System.out.println("Result of the calculated area under the integral plot: " + currentResult);
                 System.out.println("For interval: " + interval);
+                return;
             } default -> {
                 System.out.println("Invalid option");
                 return;
