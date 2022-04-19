@@ -12,7 +12,7 @@ public class FunctionContainer {
         initFunctions();
         Scanner scanner= new Scanner(System.in);
         System.out.println("Select functions for the method:");
-        System.out.println(stringBuilder.toString());
+        System.out.println(stringBuilder);
 
         choice = Integer.parseInt(scanner.nextLine());
     }

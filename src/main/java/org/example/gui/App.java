@@ -1,6 +1,5 @@
 package org.example.gui;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 import org.example.model.*;
 
@@ -24,7 +23,7 @@ public class App {
             int choice = Integer.parseInt(scanner.nextLine());
 
             //choice function
-            FunctionContainer functionContainer = null;
+            FunctionContainer functionContainer;
             while (true) {
                 try {
                     functionContainer = new FunctionContainer();
@@ -47,14 +46,10 @@ public class App {
                     Laguerrea laguerrea = new Laguerrea(functionContainer, epsilon);
                     laguerrea.calculate();
                 }
-                default -> {
-                    System.out.println("incorrect selection");
-                    return;
-                }
+                default -> System.out.println("incorrect selection");
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
             System.out.println(e.getMessage());
         }
     }

@@ -36,13 +36,15 @@ public class NewtonCotes {
 
     public void calculate() {
         getInfo();
+        double sum = 0;
+        int interval;
         switch (choice) {
             case 1 -> {
                 lowerLimit = 0;
                 upperLimit = 10;
-                double sum = newtonCotesQuadrature(lowerLimit,upperLimit,1);
+                sum = newtonCotesQuadrature(lowerLimit,upperLimit,1);
                 double upperSum = newtonCotesQuadrature(lowerLimit,upperLimit,2);
-                int interval = 3; //number of compartments
+                interval = 3; //number of compartments
                 while (Math.abs(sum-upperSum) > epsilon) {
                     sum = upperSum;
                     upperSum = newtonCotesQuadrature(lowerLimit,upperLimit,interval);
@@ -54,26 +56,24 @@ public class NewtonCotes {
                     sum += newtonCotesQuadrature(lowerLimit+factor,upperLimit,interval);
                     lowerLimit += factor;
                 }
-                System.out.println("Result: "+ sum);
-                System.out.println("For interval: " + interval);
-            }
-            case 2 -> {
-                int interval = 1;
+            } case 2 -> {
+                interval = 1;
                 double currentResult = 0;
                 double previousResult;
                 do {
                     interval++;
                     previousResult = currentResult;
                     currentResult = newtonCotesQuadrature(lowerLimit, upperLimit, interval);
-                } while (epsilon > Math.abs(currentResult - previousResult));
-                System.out.println("Result: " + currentResult);
+                } while (epsilon < Math.abs(currentResult - previousResult));
+                System.out.println("Result of the calculated area under the integral plot: " + sum);
                 System.out.println("For interval: " + interval);
-            }
-            default -> {
+            } default -> {
                 System.out.println("Invalid option");
                 return;
             }
         }
+        System.out.println("Result: "+ sum);
+        System.out.println("For interval: " + interval);
     }
 
     private double newtonCotesQuadrature(double lowerLimit, double upperLimit, int countOfIntervals) {
