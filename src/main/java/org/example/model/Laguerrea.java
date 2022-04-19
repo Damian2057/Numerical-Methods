@@ -1,7 +1,5 @@
 package org.example.model;
 
-import java.util.ArrayList;
-
 public class Laguerrea {
     private final FunctionContainer container;
     private final Node[][] gaussNode = new Node[6][6];
@@ -16,16 +14,16 @@ public class Laguerrea {
     public void calculate() {
         int count = 2;
         double sum = laguerrePolynomials(gaussNode[2],2);
-        double prevSum = laguerrePolynomials(gaussNode[3],3);
+        double upperSum = laguerrePolynomials(gaussNode[3],3);
         int n = 4;
-        while (Math.abs(prevSum-sum) > epsilon) {
+        while (Math.abs(upperSum-sum) > epsilon) {
             count++;
-            sum = prevSum;
+            sum = upperSum;
             if(n == 6) {
                 System.out.println("Node: "+ count + " ,Result: " + sum);
                 return;
             }
-            prevSum = laguerrePolynomials(gaussNode[n],n);
+            upperSum = laguerrePolynomials(gaussNode[n],n);
             n++;
         }
 

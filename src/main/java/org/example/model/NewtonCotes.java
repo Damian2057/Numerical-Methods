@@ -10,12 +10,12 @@ public class NewtonCotes {
     private int choice;
 
     private void getInfo() {
-        StringBuilder builder = new StringBuilder();
         Scanner scanner= new Scanner(System.in);
-        builder.append("Choose a range:\n")
-                .append("[1] -> [0,+inf)\n")
-                .append("[2] Enter it yourself");
-        System.out.println(builder.toString());
+        String builder = """
+                Choose a range:
+                [1] -> [0,+inf)
+                [2] Enter it yourself""";
+        System.out.println(builder);
         choice = scanner.nextInt();
         if(choice == 2) {
             System.out.println("Enter the lower range:");
@@ -30,24 +30,31 @@ public class NewtonCotes {
         this.epsilon = epsilon;
     }
 
+    private double expFunction(double x) {
+        return container.function(x) * Math.exp(-x);
+    }
+
     public void calculate() {
         getInfo();
         switch (choice) {
             case 1 -> {
                 lowerLimit = 0;
-                upperLimit = 15;
-                int interval = 10; //number of compartments
-                double result = newtonCotesQuadrature(lowerLimit,upperLimit,interval);
-                lowerLimit = upperLimit;
-                double factor = 0.01;
-                double temp = 0;
-                do {
-                    upperLimit = lowerLimit + factor;
-                    temp = newtonCotesQuadrature(lowerLimit,upperLimit,interval);
-                    result += temp;
+                upperLimit = 10;
+                double sum = newtonCotesQuadrature(lowerLimit,upperLimit,1);
+                double upperSum = newtonCotesQuadrature(lowerLimit,upperLimit,2);
+                int interval = 3; //number of compartments
+                while (Math.abs(sum-upperSum) > epsilon) {
+                    sum = upperSum;
+                    upperSum = newtonCotesQuadrature(lowerLimit,upperLimit,interval);
+                    interval++;
+                }
+                double factor = 0.1;
+                while (epsilon
+                        > newtonCotesQuadrature(lowerLimit+factor,upperLimit, interval)) {
+                    sum += newtonCotesQuadrature(lowerLimit+factor,upperLimit,interval);
                     lowerLimit += factor;
-                } while (epsilon < Math.abs(temp));
-                System.out.println("Result: "+ result);
+                }
+                System.out.println("Result: "+ sum);
                 System.out.println("For interval: " + interval);
             }
             case 2 -> {
@@ -78,10 +85,6 @@ public class NewtonCotes {
                     * (container.function(lowerLimit) + container.function(upperLimit)
                     + (2 * firstSummary(countOfIntervals)) + (4 * secondSummary(countOfIntervals)));
         }
-    }
-
-    private double expFunction(double x) {
-        return container.function(x) * Math.exp(-x);
     }
 
     private double firstSummary(int countOfIntervals){
