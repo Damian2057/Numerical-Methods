@@ -9,16 +9,14 @@ import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.chart.ui.ApplicationFrame;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-import java.awt.*;
 import java.util.ArrayList;
 
 public class XYSeriesDemo extends ApplicationFrame {
 
-    public XYSeriesDemo(int number,ArrayList<Double> originX, ArrayList<Double> originY,
-                        ArrayList<Double> interpolatedXFunction, ArrayList<Double> interpolatedYFunction
-            ,ArrayList<Node> nodes) {
+    public XYSeriesDemo(ArrayList<Double> originX, ArrayList<Double> originY,
+                        ArrayList<Double> approxX, ArrayList<Double> approxY) {
 
-        super("Ilość węzłów: "+ number);
+        super("Ilość węzłów: ");
 
         final XYSeries originSeries = new XYSeries("f(x)");
 
@@ -26,26 +24,18 @@ public class XYSeriesDemo extends ApplicationFrame {
             originSeries.add(originX.get(i),originY.get(i));
         }
 
-        final XYSeries interpolatedSeries = new XYSeries("f'(x)");
+        final XYSeries approxSeries = new XYSeries("f'(x)");
 
-        final XYSeries point = new XYSeries("nodes");
-
-        for (int i = 0; i < nodes.size(); i++) {
-           // point.add(nodes.get(i).getX(),nodes.get(i).getY());
-        }
-
-        for (int i = 0; i < interpolatedXFunction.size(); i++) {
-            interpolatedSeries.add(interpolatedXFunction.get(i),interpolatedYFunction.get(i));
+        for (int i = 0; i < approxX.size(); i++) {
+            approxSeries.add(approxX.get(i),approxY.get(i));
         }
 
 
         final XYSeriesCollection data = new XYSeriesCollection(originSeries);
-        data.addSeries(interpolatedSeries);
-        data.addSeries(point);
-
+        data.addSeries(approxSeries);
 
         final JFreeChart chart = ChartFactory.createXYLineChart(
-                "Ilość węzłów: "+ number,
+                "Aproksymacja: ",
                 "oś X",
                 "oś Y",
                 data,
@@ -62,10 +52,10 @@ public class XYSeriesDemo extends ApplicationFrame {
         renderer.setSeriesLinesVisible(1, true);
         renderer.setSeriesShapesVisible(1, false);
 
-        renderer.setSeriesShape(2,new Rectangle(-2,-2,4,4));
-        renderer.setSeriesShapesVisible(2,true);
-        renderer.setSeriesLinesVisible(2, false);
-        renderer.setSeriesShapesFilled(2,true);
+//        renderer.setSeriesShape(2,new Rectangle(-2,-2,4,4));
+//        renderer.setSeriesShapesVisible(2,true);
+//        renderer.setSeriesLinesVisible(2, false);
+//        renderer.setSeriesShapesFilled(2,true);
         plot.setRenderer(renderer);
 
         final ChartPanel chartPanel = new ChartPanel(chart);

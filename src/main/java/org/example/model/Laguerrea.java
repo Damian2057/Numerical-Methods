@@ -3,60 +3,21 @@ package org.example.model;
 public class Laguerrea {
     private final FunctionContainer container;
     private final Node[][] gaussNode = new Node[6][6];
-    private final Double epsilon;
 
-    public Laguerrea(FunctionContainer container, double epsilon) {
+    public Laguerrea(FunctionContainer container) {
         this.container = container;
         initiateTheNodes();
-        this.epsilon = epsilon;
     }
 
-    public void calculate() {
-        int count = 2;
-        double sum = laguerrePolynomials(gaussNode[2],2);
-        double upperSum = laguerrePolynomials(gaussNode[3],3);
-        int n = 4;
-        while (Math.abs(upperSum-sum) > epsilon) {
-            count++;
-            sum = upperSum;
-            if(n == 6) {
-                System.out.println("Node: "+ count + " ,Result: " + sum);
-                return;
-            }
-            upperSum = laguerrePolynomials(gaussNode[n],n);
-            n++;
-        }
+    public double calculateByNode(int node) {
 
-        System.out.println("Node: "+ count + " ,Result: " + sum);
-    }
-
-    public double lambda(int level) {
-        double result = 0.0;
-
-        return 0;
-    }
-
-    private double polymian(int lvl, double x) {
-        if(lvl == 0) {
-            return 1;
-        } else if(lvl == 1) {
-            return (x-1);
-        } else {
-            double[] temp = new  double[lvl+1];
-            temp[0] = 1;
-            temp[1] = x-1;
-            for (int i = 1; i < lvl; i++) {
-                temp[i+1] = (((x-(2*i)-1) * temp[i]) - ((i*i) * temp[i - 1]));
-            }
-
-            return temp[lvl];
-        }
+        return laguerrePolynomials(gaussNode[node],node);
     }
 
     private double laguerrePolynomials(Node[] nodes, int nodesCount) {
         double finalSum = 0;
         for (int i = 0; i < nodesCount; i++) {
-            finalSum += nodes[i].getNode() * container.function(nodes[i].getWeight()); //* ;
+            finalSum += nodes[i].getNode() * container.function(nodes[i].getWeight());
         }
         return finalSum;
     }
@@ -81,19 +42,5 @@ public class Laguerrea {
         gaussNode[5][2] = new Node(0.075942,3.596425771040722);
         gaussNode[5][3] = new Node(0.003612, 7.085810005858880);
         gaussNode[5][4] = new Node(0.000032, 12.64080084427578);
-    }
-
-    private double silnia (int n) {
-        double wynik = 1.0;
-        if (n==0)
-            return 1;
-        else
-        {
-            for (int i=1; i<=n; i++)
-            {
-                wynik *= i;
-            }
-            return wynik;
-        }
     }
 }
