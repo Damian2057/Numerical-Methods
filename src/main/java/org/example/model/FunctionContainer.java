@@ -27,7 +27,8 @@ public class FunctionContainer {
                 .append("[6]: x*x*x+x-1\n")
                 .append("[7] 5x-2\n")
                 .append("[8] cos(x)\n")
-                .append("[9] e^(-x)\n");
+                .append("[9] e^(-x)\n")
+                .append("[10] |x|");
     }
 
     public double function(double x) {
@@ -58,6 +59,9 @@ public class FunctionContainer {
             }
             case 9 -> {
                 return Math.exp(-x);
+            }
+            case 10 -> {
+                return Math.abs(x);
             }
         }
         throw new DataException("Bad function ID");

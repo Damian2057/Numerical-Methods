@@ -50,18 +50,23 @@ public class App {
             switch (choice) {
                 case 1 -> {
                     System.out.println("Enter the accuracy of approximation");
-                    double epsilon = Double.parseDouble(scanner.nextLine());
+                    //String epsilonS = scanner.nextLine();
+                    double epsilon = 0.0;
+                    epsilon = scanner.nextDouble();
                     int approxLvl = 1;
                     do {
                         polymial = approximation.polynomialListCoefficients(approxLvl);
                         approxLvl++;
-                    } while (approximation.gaussError() > epsilon);
+                    } while (approximation.gaussError(polymial) > epsilon);
+                    System.out.println(Arrays.toString(polymial));
+                    System.out.println(approximation.gaussError(polymial));
                 }
                 case 2 -> {
                     System.out.println("Enter the degree of the polynomial: ");
                     int n = scanner.nextInt();
                     polymial = approximation.polynomialListCoefficients(n);
                     System.out.println(Arrays.toString(polymial));
+                    approximation.gaussError(polymial);
                 }
                 default -> {
                     System.out.println("error");
@@ -80,7 +85,7 @@ public class App {
                 originYFunction.add(functionContainer.function(temp));
 
                 approxXFunction.add(temp);
-                approxYFunction.add(approximation.horner(polymial,temp));
+                approxYFunction.add(approximation.valueTest(polymial,temp));
 
                 temp += accuracyLeap;
             }
