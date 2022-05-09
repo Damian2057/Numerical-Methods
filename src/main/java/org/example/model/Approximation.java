@@ -1,5 +1,7 @@
 package org.example.model;
 
+import java.util.ArrayList;
+
 public class Approximation {
 
     private final FunctionContainer functionContainer;
@@ -19,8 +21,6 @@ public class Approximation {
         {{-0.861136, 0.347855},{-0.339981, 0.652145},{0.339981, 0.652145},{0.861136, 0.347855}},
             {{-0.906180, 0.236927},{-0.538469, 0.478629},{0, 0.568889},{0.538469, 0.478629},{0.906180, 0.236927}}
     };
-
-
         return dane[liczba_wezlow - 2][numer_wezla];
     }
 
@@ -38,13 +38,16 @@ public class Approximation {
     }
 
     private double funkcja_bazowa(int degree, double x) {
-        double[] p = new double[10000];
+        ArrayList<Double> data = new ArrayList<>();
+        data.add(1.0);
+        data.add(x);
+     double[] p = new double[10000];
         p[0] = 1;
         p[1] = x;
         for(int i = 2; i < degree+1; i++) {
-            p[i] = (((2 * (i - 1) + 1) / i * x * p[i - 1] - (i - 1) / i * p[i - 2]));
+            data.add(i,(((2 * (i - 1) + 1) / i * x * data.get(i - 1) - (i - 1) / i * data.get(i - 2))));
         }
-        return p[degree];
+        return data.get(degree);
     }
 
     private double gaussMethod(int degree) {
@@ -91,7 +94,7 @@ public class Approximation {
         for (int i = poly.length-1; i >= 0; i--) {
             sum += poly[i] * silnia(x,i);
         }
-        return sum;
+        return sum/4;
     }
     private double silnia(double x, int i) {
         double sum = 1;

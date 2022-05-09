@@ -50,7 +50,6 @@ public class App {
             switch (choice) {
                 case 1 -> {
                     System.out.println("Enter the accuracy of approximation");
-                    //String epsilonS = scanner.nextLine();
                     double epsilon = 0.0;
                     epsilon = scanner.nextDouble();
                     int approxLvl = 1;
@@ -77,7 +76,7 @@ public class App {
             ArrayList<Double> approxXFunction = new ArrayList<>();
             ArrayList<Double> approxYFunction = new ArrayList<>();
 
-            double accuracyLeap = 0.1;
+            double accuracyLeap = 0.01;
             double temp = lowerLimit; //started X on the chart
 
             while (temp <= upperLimit) {
