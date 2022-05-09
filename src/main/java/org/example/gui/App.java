@@ -7,10 +7,7 @@ public class App {
 
     private static void getInfo() {
         String stringBuilder = """
-                Numerical integration with two different ways:
-                Select Method:
-                [1]: complex Newton-Cotes quadrature based on three nodes
-                [2]: integration on the interval (Laguerre polynomials)
+                Approximation methods:
                 """;
         System.out.println(stringBuilder);
     }
@@ -18,9 +15,7 @@ public class App {
     public static void main(String[] args) {
         try {
             Scanner scanner= new Scanner(System.in);
-            //choice method
             getInfo();
-            int choice = Integer.parseInt(scanner.nextLine());
 
             //choice function
             FunctionContainer functionContainer;
@@ -33,22 +28,42 @@ public class App {
                 }
             }
 
-            System.out.println("Enter the accuracy of the result:");
-            double epsilon = Double.parseDouble(scanner.nextLine());
+            double lowerLimit = 0;
+            double upperLimit = 0;
+            System.out.println("Enter the lower approximation range:");
+            lowerLimit = Double.parseDouble(scanner.nextLine());
+            System.out.println("Enter the upper approximation range:");
+            upperLimit = Double.parseDouble(scanner.nextLine());
+            System.out.println("Enter the number of nodes:");
+            int nodesCount = scanner.nextInt();
 
-            //calculation
+            System.out.println("Choose the approximation criterion:\n" +
+                    "1. Accuracy Criterion\n" +
+                    "2. The criterion of the degree of the approximating polynomial");
+            int choice = scanner.nextInt();
+
+            double[] polymial;
+            Approximation approximation = new Approximation(functionContainer,nodesCount);
+
             switch (choice) {
                 case 1 -> {
-                    NewtonCotes newtonCotes = new NewtonCotes(functionContainer, epsilon);
-                    newtonCotes.calculate();
+                    System.out.println("Enter the accuracy of approximation");
+                    double epsilon = Double.parseDouble(scanner.nextLine());
+                    int approxLvl = 1;
+                    do {
+                        polymial = approximation.polynomialListCoefficients(approxLvl);
+                        approxLvl++;
+                    } while (approximation.gaussError() > epsilon);
                 }
                 case 2 -> {
-                    Laguerrea laguerrea = new Laguerrea(functionContainer, epsilon);
-                    laguerrea.calculate();
+                    System.out.println("Enter the degree of the polynomial: ");
+                    int n = scanner.nextInt();
+                    polymial = approximation.polynomialListCoefficients(n);
                 }
-                default -> System.out.println("incorrect selection");
+                default -> {
+                    System.out.println("error");
+                }
             }
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

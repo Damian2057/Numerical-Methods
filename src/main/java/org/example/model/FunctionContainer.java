@@ -26,7 +26,8 @@ public class FunctionContainer {
                 .append("[5]: sin(x)*x+5\n")
                 .append("[6]: x*x*x+x-1\n")
                 .append("[7] 5x-2\n")
-                .append("[8] cos(x)\n");
+                .append("[8] cos(x)\n")
+                .append("[9] e^(-x)\n");
     }
 
     public double function(double x) {
@@ -54,6 +55,9 @@ public class FunctionContainer {
             }
             case 8 -> {
                 return Math.cos(x);
+            }
+            case 9 -> {
+                return Math.exp(-x);
             }
         }
         throw new DataException("Bad function ID");
