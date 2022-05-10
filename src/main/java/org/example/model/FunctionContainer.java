@@ -67,7 +67,10 @@ public class FunctionContainer {
         throw new DataException("Bad function ID");
     }
 
-    public int getChoice() {
-        return choice;
+    public double in(double x) {
+        if(choice == 10) {
+            return x-0.1;
+        }
+        return x;
     }
 }

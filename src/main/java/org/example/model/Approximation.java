@@ -11,7 +11,7 @@ public class Approximation {
     public Approximation(FunctionContainer functionContainer, int countOfNodes) {
         this.functionContainer = functionContainer;
         this.countOfNodes = countOfNodes;
-        integral = new Integral(functionContainer);
+        integral = new Integral();
     }
 
     public double[] polynomialListCoefficients(int degree) {

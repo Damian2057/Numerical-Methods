@@ -20,18 +20,18 @@ public class App {
             getInfo();
 
             //choice function
-            FunctionContainer functionContainer;
+            FunctionContainer container;
             while (true) {
                 try {
-                    functionContainer = new FunctionContainer();
+                    container = new FunctionContainer();
                     break;
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
             }
 
-            double lowerLimit = 0;
-            double upperLimit = 0;
+            double lowerLimit;
+            double upperLimit;
             System.out.println("Enter the lower approximation range:");
             lowerLimit = Double.parseDouble(scanner.nextLine());
             System.out.println("Enter the upper approximation range:");
@@ -39,19 +39,20 @@ public class App {
             System.out.println("Enter the number of nodes:");
             int nodesCount = scanner.nextInt();
 
-            System.out.println("Choose the approximation criterion:\n" +
-                    "1. Accuracy Criterion\n" +
-                    "2. The criterion of the degree of the approximating polynomial");
+            System.out.println("""
+                    Choose the approximation criterion:
+                    1. Accuracy Criterion
+                    2. The criterion of the degree of the approximating polynomial""");
             int choice = scanner.nextInt();
 
             double[] polymial = null;
-            Approximation approximation = new Approximation(functionContainer,nodesCount);
+            Approximation approximation = new Approximation(container,nodesCount);
 
             switch (choice) {
                 case 1 -> {
                     try {
                         System.out.println("Enter the accuracy of approximation");
-                        double epsilon = 0.0;
+                        double epsilon;
                         epsilon = scanner.nextDouble();
                         int approxLvl = 1;
                         do {
@@ -71,9 +72,7 @@ public class App {
                     System.out.println(Arrays.toString(polymial));
                     System.out.println("Error: " + approximation.gaussError(polymial));
                 }
-                default -> {
-                    System.out.println("error");
-                }
+                default -> System.out.println("error");
                 }
             ArrayList<Double> originXFunction = new ArrayList<>();
             ArrayList<Double> originYFunction = new ArrayList<>();
@@ -85,10 +84,11 @@ public class App {
 
             while (temp <= upperLimit) {
                 originXFunction.add(temp);
-                originYFunction.add(functionContainer.function(temp));
+                originYFunction.add(container.function(temp));
 
                 approxXFunction.add(temp);
-                approxYFunction.add(approximation.valueTest(polymial,temp));
+                assert polymial != null;
+                approxYFunction.add(container.in(approximation.valueTest(polymial,temp)));
 
                 temp += accuracyLeap;
             }

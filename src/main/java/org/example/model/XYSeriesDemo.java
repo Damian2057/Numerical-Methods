@@ -51,11 +51,6 @@ public class XYSeriesDemo extends ApplicationFrame {
         renderer.setSeriesShapesVisible(0, false);
         renderer.setSeriesLinesVisible(1, true);
         renderer.setSeriesShapesVisible(1, false);
-
-//        renderer.setSeriesShape(2,new Rectangle(-2,-2,4,4));
-//        renderer.setSeriesShapesVisible(2,true);
-//        renderer.setSeriesLinesVisible(2, false);
-//        renderer.setSeriesShapesFilled(2,true);
         plot.setRenderer(renderer);
 
         final ChartPanel chartPanel = new ChartPanel(chart);

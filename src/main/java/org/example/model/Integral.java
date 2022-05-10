@@ -1,7 +1,6 @@
 package org.example.model;
 
 public class Integral {
-    private final FunctionContainer container;
     private final double[][][] gaussNode = {
             {{-0.577350, 1}, {0.577350, 1}},
             {{-0.774597, 5.0 / 9.0},{0, 8.0 / 9.0},{0.774597, 5.0 / 9.0}},
@@ -9,8 +8,7 @@ public class Integral {
             {{-0.906180, 0.236927},{-0.538469, 0.478629},{0, 0.568889},{0.538469, 0.478629},{0.906180, 0.236927}}
     };
 
-    public Integral(FunctionContainer container) {
-        this.container = container;
+    public Integral() {
     }
 
     public double[] coefficient(int countOfNodes, int n) {
