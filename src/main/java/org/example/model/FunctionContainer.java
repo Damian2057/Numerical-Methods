@@ -24,7 +24,7 @@ public class FunctionContainer {
                 .append("[3]: 2*cos(x)+2\n")
                 .append("[4]: sin(x)\n")
                 .append("[5]: sin(x)*x+5\n")
-                .append("[6]: -x*x*x+cos(x)\n")
+                .append("[6]: Math.cos(x) - x^3\n")
                 .append("[7] 5x-2\n")
                 .append("[8] cos(x)\n")
                 .append("[9] e^(-x)\n")
@@ -65,5 +65,9 @@ public class FunctionContainer {
             }
         }
         throw new DataException("Bad function ID");
+    }
+
+    public int getChoice() {
+        return choice;
     }
 }

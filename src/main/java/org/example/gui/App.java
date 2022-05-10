@@ -59,7 +59,7 @@ public class App {
                             approxLvl++;
                         } while (approximation.gaussError(polymial) > epsilon);
                         System.out.println(Arrays.toString(polymial));
-                        System.out.println(approximation.gaussError(polymial));
+                        System.out.println("Error: " + approximation.gaussError(polymial));
                     } catch (Exception e) {
                         return;
                     }
@@ -69,7 +69,7 @@ public class App {
                     int n = scanner.nextInt();
                     polymial = approximation.polynomialListCoefficients(n);
                     System.out.println(Arrays.toString(polymial));
-                    approximation.gaussError(polymial);
+                    System.out.println("Error: " + approximation.gaussError(polymial));
                 }
                 default -> {
                     System.out.println("error");
