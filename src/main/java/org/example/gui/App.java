@@ -49,16 +49,20 @@ public class App {
 
             switch (choice) {
                 case 1 -> {
-                    System.out.println("Enter the accuracy of approximation");
-                    double epsilon = 0.0;
-                    epsilon = scanner.nextDouble();
-                    int approxLvl = 1;
-                    do {
-                        polymial = approximation.polynomialListCoefficients(approxLvl);
-                        approxLvl++;
-                    } while (approximation.gaussError(polymial) > epsilon);
-                    System.out.println(Arrays.toString(polymial));
-                    System.out.println(approximation.gaussError(polymial));
+                    try {
+                        System.out.println("Enter the accuracy of approximation");
+                        double epsilon = 0.0;
+                        epsilon = scanner.nextDouble();
+                        int approxLvl = 1;
+                        do {
+                            polymial = approximation.polynomialListCoefficients(approxLvl);
+                            approxLvl++;
+                        } while (approximation.gaussError(polymial) > epsilon);
+                        System.out.println(Arrays.toString(polymial));
+                        System.out.println(approximation.gaussError(polymial));
+                    } catch (Exception e) {
+                        return;
+                    }
                 }
                 case 2 -> {
                     System.out.println("Enter the degree of the polynomial: ");

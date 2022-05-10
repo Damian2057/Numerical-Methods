@@ -24,7 +24,7 @@ public class FunctionContainer {
                 .append("[3]: 2*cos(x)+2\n")
                 .append("[4]: sin(x)\n")
                 .append("[5]: sin(x)*x+5\n")
-                .append("[6]: x*x*x+x-1\n")
+                .append("[6]: -x*x*x+cos(x)\n")
                 .append("[7] 5x-2\n")
                 .append("[8] cos(x)\n")
                 .append("[9] e^(-x)\n")
@@ -49,7 +49,7 @@ public class FunctionContainer {
                 return Math.sin(x)*x+5;
             }
             case 6 -> {
-                return x*x*x+x-1;
+                return Math.cos(x) - x*x*x;
             }
             case 7 -> {
                 return 5*x-2;
