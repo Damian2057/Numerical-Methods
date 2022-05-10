@@ -6,7 +6,7 @@ public class Approximation {
 
     private final FunctionContainer functionContainer;
     private final int countOfNodes;
-    private Integral integral;
+    private final Integral integral;
 
     public Approximation(FunctionContainer functionContainer, int countOfNodes) {
         this.functionContainer = functionContainer;
@@ -20,17 +20,16 @@ public class Approximation {
         for (int i = 0; i <= degree; i++) {
             polymial[i] = polynomiaCoefficient(i);
             System.out.println(polymial[i]);
-//            if(Math.round((System.nanoTime() - startTime)/1000.0)/1000.0 > 30) {
-//                System.out.println("The approximation seems unattainable");
-//                throw new RuntimeException();
-//            }
+            if(Math.round((System.nanoTime() - startTime)/1000.0)/1000.0 > 30) {
+                System.out.println("The approximation seems unattainable");
+                throw new RuntimeException();
+            }
         }
         return polymial;
     }
 
     private double polynomiaCoefficient(int degree) {
-        double we = (double) (2 * degree + 1) / 2 * gaussMethod(degree);
-        return we;
+        return (2.0 * degree + 1.0) / 2.0 * gaussMethod(degree);
     }
 
     private double baseFunction(int degree, double x) {
@@ -76,8 +75,8 @@ public class Approximation {
 
     public double horner(double[] poly, double x) {
         double sum = 0.0;
-        for (int i = 0; i < poly.length; i++) {
-            sum = sum * x + poly[i];
+        for (double v : poly) {
+            sum = sum * x + v;
         }
         return sum;
     }
